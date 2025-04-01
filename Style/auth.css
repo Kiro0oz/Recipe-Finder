@@ -1,0 +1,99 @@
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 795px;
+}
+
+.auth-container {
+    display: flex;
+    width: 800px;
+    background-color: var(--primary-container);
+    border-radius: var(--radius-8);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+}
+
+.auth-left, .auth-right {
+    flex: 1;
+    padding: 20px;
+}
+
+.auth-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-left h2 {
+    text-align: center;
+    color: var(--on-background);
+    margin-bottom: 20px;
+}
+
+.auth-left form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-left label {
+    font-size: var(--fs-body-medium);
+    font-weight: var(--weight-medium);
+    color: var(--on-background);
+}
+
+.auth-left input {
+    padding: 10px;
+    border: 1px solid var(--input-outline);
+    border-radius: var(--radius-4);
+    background-color: var(--background);
+    color: var(--on-background);
+    transition: border-color var(--transition-short);
+}
+
+.auth-left input:focus {
+    border-color: var(--input-outline-hover);
+}
+
+.auth-left button {
+    padding: 10px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: var(--radius-4);
+    font-size: var(--fs-body-large);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    transition: background-color var(--transition-short);
+}
+
+.auth-left button:hover {
+    background-color: var(--primary-hover);
+}
+
+.auth-left .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-left .checkbox-group input {
+    width: auto;
+}
+
+.auth-right img {
+    width: 100%;
+    height: auto;
+}
+
+.hypertext {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.hypertext a {
+    color: var(--primary);
+    text-decoration: none;
+}

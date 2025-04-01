@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/Style/main.css" />
+    <link rel="stylesheet" href="/Style/auth.css">
     <title>Recipe Finder</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -114,61 +115,43 @@
       </ul>
     </nav>
 
-    <main class="detail-page-main">
-      <article class="article container detail-page" data-detail-container>
-        <figure class="detail-banner img-holder">
-            <img src="/assets/detail-banner.jpg" width="300" height="300" alt="Img" class="img-cover">
-        </figure>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-left">
+                <h2>Register</h2>
+                <form>
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                    
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                    
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="is-admin" name="is-admin">
+                        <label for="is-admin">Admin</label>
+                    </div>
 
-        <div class="detail-content">
-            <div class="title-wrapper">
-                <h1 class="display-small">Restaurant-Style Pan Seared Salmon</h1>
-                <button class="btn btn-secondary has-state has-icon removed">
-                    <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
-                    <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
-                    <span class="label-large unsave-text">Unsave</span>
-                </button>
+                    
+                    <button type="submit">Register</button>
+                    <span class="hypertext">Have account <a href="/Pages/Authentication/login.html">Login</a></span>
+                </form>
             </div>
-
-            <div class="detail-author label-large">
-                <span class="span">by</span>kiro adel
+            <div class="auth-right">
+                <img src="illustration.png" alt="Illustration">
             </div>
-
-            <div class="detail-stats">
-                
-                <div class="stats-item">
-                    <span class="display-medium">4</span>
-                    <span class="label-medium">Ingredients</span>
-                </div>
-
-                <div class="stats-item">
-                    <span class="display-medium">15</span>
-                    <span class="label-medium">Minutes</span>
-                </div>
-
-                <div class="stats-item">
-                    <span class="display-medium">384</span>
-                    <span class="label-medium">Calories</span>
-                </div>
-            </div>
-
         </div>
-
-      </article>
-    </main>
-
-    
-         <!-- Footer -->
-         <footer class="footer">
-
-            <p class="copyright body-medium">Copyright 2025 Kiro0oz</p>
-
-            <a href="/" class="logo">
-              <p class="display-large">Recipe Finder</p>
-            </a>
-
-            
-
-          </footer>
-  </body>
+    </div>
+</body>
 </html>
