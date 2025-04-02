@@ -1,0 +1,15 @@
+.saved-recipe-page {
+    padding-block-end: 24px;
+    margin-left: 12px;
+}
+
+.saved-recipe-page .section-title {
+    line-height: 40px;
+}
+
+.fav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}

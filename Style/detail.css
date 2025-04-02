@@ -95,3 +95,41 @@
     list-style-type: disc;
     margin-inline-start: 24px;
 }
+
+@media(min-width: 600px) {
+    .detail-banner {
+        max-width: 420px;
+    }
+
+    .detail-stats .stats-item {
+        padding-block: 20px;
+    }
+}
+
+@media(min-width: 992px) {
+    .detail-page-main {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        margin: auto;
+    }
+
+    .detail-page {
+        display: grid;
+        grid-template-columns: 0.8fr 1fr;
+        align-items: center;
+        gap: 36px;
+    }
+
+    .detail-banner {
+        position: sticky;
+        top: calc(var(--header-height) + 32px);
+        margin-block-start: 16px;
+        max-width: 100%;
+    }
+
+    .detail-stats .stats-item {
+        padding-block: 24px;
+        gap: 8px;
+    }
+}
