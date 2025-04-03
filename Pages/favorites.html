@@ -29,9 +29,7 @@
       <nav class="navbar">
         <ul class="navbar-list">
           <li>
-            <a
-              href="/index.html"
-              class="navbar-link title-small has-state active"
+            <a href="/" class="navbar-link title-small has-state"
               >Home</a
             >
           </li>
@@ -51,6 +49,13 @@
           </li>
           <li>
             <a
+              href="/Pages/favorites.html"
+              class="navbar-link title-small has-state active"
+              >Favorites</a
+            >
+          </li>
+          <li>
+            <a
               href="/Pages/Authentication/login.html"
               class="navbar-link title-small has-state"
               >Sign In</a
@@ -58,6 +63,8 @@
           </li>
         </ul>
       </nav>
+
+
 
       <button
         class="icon-btn theme-switch has-state"
@@ -73,17 +80,19 @@
         >
       </button>
 
-      <a href="/Pages/favorites.html" class="btn btn-primary has-icon">
-        <span class="material-symbols-outlined" aria-hidden="true">book</span>
-        <span class="span">Favorites</span>
-      </a>
+      <button class="icon-btn">
+        <a href="Pages/userProfile.html">Profile</a>
+      </button>
+
+
+
     </header>
 
     <!-- Mobile Nav -->
     <nav class="mobile-nav" aria-label="primary">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="/" class="nav-link">
+          <a href="#" class="nav-link">
             <span class="item-icon">
               <span class="material-symbols-outlined" aria-hidden="true"
                 >home</span
@@ -112,6 +121,28 @@
               >
             </span>
             <span class="label-medium">Favorites</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/about.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                info
+              </span>
+            </span>
+            <span class="label-medium">About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/Authentication/login.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >login</span
+              >
+            </span>
+            <span class="label-medium">Sign In</span>
           </a>
         </li>
       </ul>
@@ -144,10 +175,11 @@
                           <span class="label-medium">2 minutes</span>
                         </div>
     
-                        <button class="icon-btn has-state removed" aria-label="Add to saved recipes">
+                        <button class="icon-btn has-state saved" aria-label="Add to saved recipes">
                           <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
                           <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
                         </button>
+  
     
                       </div>
                     </div>
@@ -172,7 +204,7 @@
                           <span class="label-medium">2 minutes</span>
                         </div>
     
-                        <button class="icon-btn has-state removed" aria-label="Add to saved recipes">
+                        <button class="icon-btn has-state saved" aria-label="Add to saved recipes">
                           <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
                           <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
                         </button>

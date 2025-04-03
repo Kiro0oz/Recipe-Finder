@@ -29,7 +29,7 @@
       <nav class="navbar">
         <ul class="navbar-list">
           <li>
-            <a href="/" class="navbar-link title-small has-state active"
+            <a href="/" class="navbar-link title-small has-state"
               >Home</a
             >
           </li>
@@ -49,6 +49,13 @@
           </li>
           <li>
             <a
+              href="/Pages/favorites.html"
+              class="navbar-link title-small has-state"
+              >Favorites</a
+            >
+          </li>
+          <li>
+            <a
               href="/Pages/Authentication/login.html"
               class="navbar-link title-small has-state"
               >Sign In</a
@@ -56,6 +63,8 @@
           </li>
         </ul>
       </nav>
+
+
 
       <button
         class="icon-btn theme-switch has-state"
@@ -71,17 +80,19 @@
         >
       </button>
 
-      <a href="/Pages/favorites.html" class="btn btn-primary has-icon">
-        <span class="material-symbols-outlined" aria-hidden="true">book</span>
-        <span class="span">Favorites</span>
-      </a>
+      <button class="icon-btn">
+        <a href="Pages/userProfile.html">Profile</a>
+      </button>
+
+
+
     </header>
 
     <!-- Mobile Nav -->
     <nav class="mobile-nav" aria-label="primary">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#" class="nav-link" aria-current="true">
+          <a href="#" class="nav-link">
             <span class="item-icon">
               <span class="material-symbols-outlined" aria-hidden="true"
                 >home</span
@@ -112,57 +123,79 @@
             <span class="label-medium">Favorites</span>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a href="/Pages/about.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                info
+              </span>
+            </span>
+            <span class="label-medium">About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/Authentication/login.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >login</span
+              >
+            </span>
+            <span class="label-medium">Sign In</span>
+          </a>
+        </li>
       </ul>
     </nav>
 
-    <main class="container">
-        <div class="profile-container">
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <img src="https://source.unsplash.com/random/150x150/?avatar" alt="Profile Avatar">
-                </div>
-                <h1>My Profile</h1>
-            </div>
-
-            <div class="profile-content">
-                <div class="profile-section">
-                    <h2>Account Information</h2>
-                    <form class="profile-form">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" value="JohnDoe" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" value="john@example.com" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="account-type">Account Type</label>
-                            <input type="text" id="account-type" value="User" readonly>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="profile-section">
-                    <h2>Change Password</h2>
-                    <form class="profile-form">
-                        <div class="form-group">
-                            <label for="current-password">Current Password</label>
-                            <input type="password" id="current-password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="new-password">New Password</label>
-                            <input type="password" id="new-password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-new-password">Confirm New Password</label>
-                            <input type="password" id="confirm-new-password" required>
-                        </div>
-                        <button type="submit" class="btn-primary">Update Password</button>
-                    </form>
-                </div>
-            </div>
+    <main class="container-profileSection">
+      <div class="profile-container">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <img src="/assets/me.jpg" alt="Profile Avatar" />
+          </div>
+          <h1 class="display-medium">Kiro Adel</h1>
         </div>
+
+        <div class="profile-content">
+          <div class="profile-section">
+            <h2>Account Information</h2>
+            <form class="profile-form">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="Kiro0oz" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" value="kiroadel@gmail.com" />
+              </div>
+              <div class="form-group">
+                <label for="account-type">Account Type</label>
+                <input type="text" id="account-type" value="Admin" readonly />
+              </div>
+            </form>
+          </div>
+
+          <div class="profile-section">
+            <h2>Change Password</h2>
+            <form class="profile-form">
+              <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" required />
+              </div>
+              <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" required />
+              </div>
+              <div class="form-group">
+                <label for="confirm-new-password">Confirm New Password</label>
+                <input type="password" id="confirm-new-password" required />
+              </div>
+              <button type="submit" class="btn-primary">Update Password</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Footer -->
@@ -175,13 +208,13 @@
     </footer>
 
     <script>
-        function openModal() {
-            document.getElementById("editModal").showModal();
-        }
+      function openModal() {
+        document.getElementById("editModal").showModal();
+      }
 
-        function closeModal() {
-            document.getElementById("editModal").close();
-        }
+      function closeModal() {
+        document.getElementById("editModal").close();
+      }
     </script>
   </body>
 </html>
