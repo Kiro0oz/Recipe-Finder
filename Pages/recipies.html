@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Style/main.css" />
+    <title>Recipe Finder</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0"
+    />
+  </head>
+  <body>
+    <!-- =========== Header =========== -->
+    <header class="header" data-header>
+      <a href="/" class="logo">
+        <p class="display-large">Recipe Finder</p>
+      </a>
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li>
+            <a href="/" class="navbar-link title-small has-state"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="navbar-link title-small has-state active"
+              >Recipes</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/about.html"
+              class="navbar-link title-small has-state"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/favorites.html"
+              class="navbar-link title-small has-state"
+              >Favorites</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/Authentication/login.html"
+              class="navbar-link title-small has-state"
+              >Sign In</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <button
+        class="icon-btn theme-switch has-state"
+        aria-pressed="false"
+        aria-label="Toggle light and dark theme"
+        data-theme-btn
+      >
+        <span class="material-symbols-outlined light-icon" aria-hidden="true"
+          >light_mode</span
+        >
+        <span class="material-symbols-outlined dark-icon" aria-hidden="true"
+          >dark_mode</span
+        >
+      </button>
+
+      <button class="icon-btn">
+        <a href="./userProfile.html">Profile</a>
+      </button>
+    </header>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav" aria-label="primary">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#" class="nav-link" >
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >home</span
+              >
+            </span>
+            <span class="label-medium">Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" aria-current="true">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >lunch_dining</span
+              >
+            </span>
+            <span class="label-medium">Recipes</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/favorites.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >book</span
+              >
+            </span>
+            <span class="label-medium">Favorites</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/about.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                info
+              </span>
+            </span>
+            <span class="label-medium">About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/Authentication/login.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >login</span
+              >
+            </span>
+            <span class="label-medium">Sign In</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+        <article class="article recipe-page">
+            <!-- Filter Bar -->
+             <div class="filter-bar" data-filter-bar>
+
+                <div class="title-wrapper">
+                    <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
+
+                    <p class="title-medium">Filters</p>
+
+                    <button class="close-btn has-state" aria-label="Close filter bar" data-filter-toggler>
+                        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                    </button>
+
+                </div>
+
+                <div class="filter-content">
+                    <div class="search-wrapper">
+                        <div class="input-outlined">
+                            <label for="search" class="body-large label">Search</label>
+                            <input type="search" name="search" id="search" class="input-field body-large">
+                        </div>
+                    </div>
+                </div>
+
+             </div>
+        </article>
+
+    </main>
+
+  </body>
+</html>

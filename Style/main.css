@@ -320,6 +320,7 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px 8px;
+    margin-top: 12px;
 }
 
 .img-holder {
@@ -339,6 +340,18 @@ main {
 
 .section-title {
   margin-block-end: 12px;  
+  padding: 0 12px;
+}
+
+.badge-btn {
+    height: 40px;
+    border-radius: var(--radius-pill);
+    background-color: var(--badge-btn);
+    color: var(--on-badge-btn);
+    max-width: max-content;
+    padding-inline: 16px;
+    display: grid;
+    place-items: center;
 }
 
 /* Tab */
@@ -714,6 +727,7 @@ main {
     overflow-x: auto;
     scroll-snap-type: inline mandatory;
     padding-block-end: 5px;
+    margin: 0 12px;
 }
 
 .slider::-webkit-scrollbar {
@@ -864,6 +878,27 @@ main {
 
 }
 
+/* Tags */
+.tag {
+    text-align: center;
+}
+
+.tag .section-text {
+    max-width: 50ch;
+    margin-inline: auto;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-block-start: 24px;
+    padding: 4px;
+}
+
+
 @media(min-width: 768px) {
     :root {
         --header-height: 72px;
@@ -992,5 +1027,10 @@ main {
 
     .slider-item {
         min-width: calc(20% - 6.4px);
+    }
+
+    .tag {
+        display: flex;
+        justify-content: center;
     }
 }

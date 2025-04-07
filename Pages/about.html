@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Style/main.css" />
+    <link rel="stylesheet" href="/Style/about.css" />
+    <title>Recipe Finder</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0"
+    />
+  </head>
+  <body>
+    <!-- =========== Header =========== -->
+    <header class="header" data-header>
+      <a href="/" class="logo">
+        <p class="display-large">Recipe Finder</p>
+      </a>
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li>
+            <a href="/" class="navbar-link title-small has-state">Home</a>
+          </li>
+          <li>
+            <a
+              href="/Pages/recipies.html"
+              class="navbar-link title-small has-state"
+              >Recipes</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/about.html"
+              class="navbar-link title-small has-state active"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/favorites.html"
+              class="navbar-link title-small has-state"
+              >Favorites</a
+            >
+          </li>
+          <li>
+            <a
+              href="/Pages/Authentication/login.html"
+              class="navbar-link title-small has-state"
+              >Sign In</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <button
+        class="icon-btn theme-switch has-state"
+        aria-pressed="false"
+        aria-label="Toggle light and dark theme"
+        data-theme-btn
+      >
+        <span class="material-symbols-outlined light-icon" aria-hidden="true"
+          >light_mode</span
+        >
+        <span class="material-symbols-outlined dark-icon" aria-hidden="true"
+          >dark_mode</span
+        >
+      </button>
+
+      <button class="icon-btn">
+        <a href="Pages/userProfile.html">Profile</a>
+      </button>
+    </header>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav" aria-label="primary">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >home</span
+              >
+            </span>
+            <span class="label-medium">Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/recipies.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >lunch_dining</span
+              >
+            </span>
+            <span class="label-medium">Recipes</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/favorites.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >book</span
+              >
+            </span>
+            <span class="label-medium">Favorites</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/about.html" class="nav-link" aria-current="true">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                info
+              </span>
+            </span>
+            <span class="label-medium">About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/Pages/Authentication/login.html" class="nav-link">
+            <span class="item-icon">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >login</span
+              >
+            </span>
+            <span class="label-medium">Sign In</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="main">
+      <article class="article container">
+        <section class="section">
+          <div class="container">
+            <h1 class="display-large">About Recipe Finder</h1>
+            <p class="body-large">
+              Recipe Finder is a platform designed to help food lovers discover
+              and share delicious recipes. Users can browse a variety of
+              recipes, view detailed instructions, and connect with others who
+              share their passion for cooking. Whether you're a novice or an
+              experienced chef, Recipe Finder makes it easy to find your next
+              meal idea!
+            </p>
+            <h2 class="headline-small">Our Mission</h2>
+            <p class="body-medium">
+              Our mission is to create a vibrant community where food
+              enthusiasts can come together to share recipes, cooking tips, and
+              kitchen stories. We aim to make cooking more accessible,
+              inspiring, and enjoyable for everyone.
+            </p>
+            <h2 class="headline-small">Who Can Use Recipe Finder?</h2>
+            <p class="body-medium">
+              Recipe Finder is open to all users! Whether you're a home cook
+              looking for new ideas or a chef who wants to share your signature
+              dish, you can join our community. We also offer an Admin role for
+              those who want to manage the content and ensure everything runs
+              smoothly.
+            </p>
+          </div>
+        </section>
+
+        <section class="row contactus-section">
+          <section class="col left">
+
+            <div class="contactTitle">
+              <h2>Get In Touch</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod.
+              </p>
+            </div>
+
+            <div class="contactInfo">
+              <div class="iconGroup">
+                <div class="icon">
+                    <span class="material-symbols-outlined" aria-hidden="true">phone</span>
+                </div>
+                <div class="details">
+                  <span>Phone</span>
+                  <span>+00 110 111 00</span>
+                </div>
+              </div>
+
+              <div class="iconGroup">
+                <div class="icon">
+                    <span class="material-symbols-outlined" aria-hidden="true">email</span>
+                </div>
+                <div class="details">
+                  <span>Email</span>
+                  <span>name.tutorial@gmail.com</span>
+                </div>
+              </div>
+
+              <div class="iconGroup">
+                <div class="icon">
+                    <span class="material-symbols-outlined" aria-hidden="true">map</span>
+                </div>
+                <div class="details">
+                  <span>Location</span>
+                  <span>X Street, Y Road, San Fransisco</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="col right">
+            <form class="messageForm">
+              <div class="inputGroup halfWidth">
+                <input type="text" name="" required="required" />
+                <label>Your Name</label>
+              </div>
+
+              <div class="inputGroup halfWidth">
+                <input type="email" name="" required="required" />
+                <label>Email</label>
+              </div>
+
+              <div class="inputGroup fullWidth">
+                <input type="text" name="" required="required" />
+                <label>Subject</label>
+              </div>
+
+              <div class="inputGroup fullWidth">
+                <textarea required="required"></textarea>
+                <label>Say Something</label>
+              </div>
+
+              <div class="inputGroup fullWidth">
+                <button>Send Message</button>
+              </div>
+            </form>
+          </section>
+        </section>
+        
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="copyright body-medium">Copyright 2025 Kiro0oz</p>
+
+      <a href="/" class="logo">
+        <p class="display-large">Recipe Finder</p>
+      </a>
+    </footer>
+  </body>
+</html>
