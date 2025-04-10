@@ -1009,7 +1009,7 @@ main {
     }
 
     .banner-card {
-        background-image: url(/assets/hero-banner-large.jpg);
+        background-image: url(../assets/hero-banner-large.jpg);
     }
 
     .banner-card > .label-medium {
