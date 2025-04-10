@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/Style/main.css" />
+    <link rel="stylesheet" href="/Style/recipe.css" />
     <title>Recipe Finder</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -145,7 +146,7 @@
     <main>
         <article class="article recipe-page">
             <!-- Filter Bar -->
-             <div class="filter-bar" data-filter-bar>
+             <div class="filter-bar " data-filter-bar>
 
                 <div class="title-wrapper">
                     <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
@@ -163,12 +164,12 @@
                     <div class="search-wrapper">
                         <div class="input-outlined">
                             <label for="search" class="body-large label">Search</label>
-                            <input type="search" name="search" id="search" class="input-field body-large">
+                            <input type="search" name="search" id="search" class="input-field body-large" placeholder="Search recipes">
                         </div>
                     </div>
 
                     <div class="accordion-container" data-accordion>
-                        <button class="accordion-btn has-state" aria-controls="cook-time" aria-expanded="false" data-accordion-btn>
+                        <button class="accordion-btn has-state" aria-controls="cook-time" aria-expanded="true" data-accordion-btn>
                             <span class="material-symbols-outlined" aria-hidden="true">timer</span>
                             <p class="label-large">Cooking Time</p>
                             <span class="material-symbols-outlined trailing-icon" aria-hidden="true">expand_more</span>
@@ -275,7 +276,7 @@
 
                     
                     <div class="accordion-container" data-accordion>
-                        <button class="accordion-btn has-state" aria-controls="diet" aria-expanded="false" data-accordion-btn>
+                        <button class="accordion-btn has-state" aria-controls="diet" aria-expanded="true" data-accordion-btn>
                             <span class="material-symbols-outlined" aria-hidden="true">spa</span>
                             <p class="label-large">Diet</p>
                             <span class="material-symbols-outlined trailing-icon" aria-hidden="true">expand_more</span>
@@ -311,9 +312,606 @@
 
                 </div>
 
-             </div>
-        </article>
+                <div class="filter-actions">
+                  <button class="btn btn-secondary label-large has-state" data-filter-clear>Clear</button>
+                  <button class="btn btn-primary label-large" data-filter-submit>Apply</button>
+                </div>
 
+             </div>
+
+             <!-- Overlay background -->
+             <div class="overlay" data-overlay data-filter-toggler></div>
+
+             <!-- Recipe Section -->
+              <div class="recipe-container container">
+
+                <div class="title-wrapper">
+                  <h2 class="headline-small">All Recipes</h2>
+
+                  <button class="btn btn-secondary btn-filter has-icon has-state" aria-label="Open filter bar" data-filter-toggler data-filter-btn>
+                    <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
+
+                    <div class="wrapper">
+                      <span class="label-large">Filters</span>
+
+                      <div class="badge label-small" data-filter-count>3</div>
+                    </div>
+                  </button>
+                </div>
+
+                <div class="grid-list recipes-list" data-grid-list>
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Molokhia Soup.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Molokhia Soup</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">35 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Macarona Bechamel.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Macarona Bechamel</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">1 hour</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Egyptian Koshari.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Koshari</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">50 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/falafel Egyptian food.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Falafel</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">5 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Hawawshi.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Hawawshi</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">30 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Fesikh and ringa.jpeg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Fesikh and ringa</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">10 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/asian-dish-plate-with-chopsticks-vegetables.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Chicken Noodles</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">1.30 hours</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/rice-noodles-with-chicken-vegetables.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Rice noodles</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">30 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/prasanta-kr-dutta-yu8eJpRvlS8-unsplash.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Prasanta</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">1 hour</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/Swedish Meatballs - 45 min.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Swedish Meatballs</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">45 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/rice-noodles-with-chicken-vegetables.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Rice noodles</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">30 minutes</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <figure class="card-media img-holder">
+                      <img
+                        src="/assets/asian-dish-plate-with-chopsticks-vegetables.jpg"
+                        alt="Recipe name"
+                        width="200"
+                        height="200"
+                        loading="lazy"
+                        class="img-cover"
+                      />
+                    </figure>
+
+                    <div class="card-body">
+                      <h3 class="title-small">
+                        <a href="Pages/detail.html" class="card-link"
+                          >Chicken Noodles</a
+                        >
+                      </h3>
+                      <div class="meta-wrapper">
+                        <div class="meta-item">
+                          <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                            >schedule</span
+                          >
+                          <span class="label-medium">1.30 hours</span>
+                        </div>
+
+                        <button
+                          class="icon-btn has-state removed"
+                          aria-label="Add to saved recipes"
+                        >
+                          <span
+                            class="material-symbols-outlined bookmark-add"
+                            aria-hidden="true"
+                            >bookmark_add</span
+                          >
+                          <span
+                            class="material-symbols-outlined bookmark"
+                            aria-hidden="true"
+                            >bookmark</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="load-more grid-list" data-load-more>
+                  <p class="body-medium info-text">Load More</p>
+                </div>
+
+              </div>
+
+        </article>
     </main>
 
   </body>
