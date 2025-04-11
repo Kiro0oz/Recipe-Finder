@@ -325,7 +325,7 @@ main {
 
 .img-holder {
     background-color: var(--image-background);
-    background-image: url(assets/image-placeholder.svg);
+    background-image: url('../assets/image-placeholder.svg');
     background-repeat: no-repeat;
     background-size: 30%;
     background-position: center;
@@ -839,7 +839,7 @@ main {
 
     /* Hero */
     .banner-card {
-        background-image: url('/assets/hero-banner-medium.jpg');
+        background-image: url('../assets/hero-banner-medium.jpg');
     }
 
     .search-field {
@@ -1010,7 +1010,7 @@ main {
     }
 
     .banner-card {
-        background-image: url(../assets/hero-banner-large.jpg);
+        background-image: url('../assets/hero-banner-large.jpg');
     }
 
     .banner-card > .label-medium {
