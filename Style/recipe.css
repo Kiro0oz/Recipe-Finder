@@ -285,6 +285,101 @@
 }
 
 
+dialog {
+    border: none;
+    border-radius: var(--radius-8);
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .Add-recipe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  textarea {
+    padding: 8px;
+    border: 1px solid var(--outline);
+    border-radius: var(--radius-4);
+    width: 100%;
+  }
+
+  textarea {
+    padding: 8px;
+    border: 1px solid  var(--outline);
+    border-radius: 4px;
+    resize: none;
+  }
+
+  .admin-actions-container {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    pointer-events: none; 
+  }
+  
+  .admin-actions {
+    border-radius: var(--radius-8);
+    padding: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
+
+  .admin-actions:first-child {
+    transform: translateX(-100%);
+    background-color: rgb(5, 137, 77);
+}
+
+
+.admin-actions:last-child {
+      background-color: var(--error);
+    transform: translateX(100%);
+  }
+  
+  .card:hover .admin-actions:first-child {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .card:hover .admin-actions:last-child {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+
+  .admin-actions span {
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+
+
+
 
 @media(min-width: 600px) {
     .filter-bar {

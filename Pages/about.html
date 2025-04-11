@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/Style/main.css" />
-    <link rel="stylesheet" href="/Style/about.css" />
+    <link rel="stylesheet" href="../Style/main.css" />
+    <link rel="stylesheet" href="../Style/about.css" />
     <title>Recipe Finder</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -144,31 +144,37 @@
     <main class="main">
       <article class="article container">
         <section class="section">
-          <div class="container">
-            <h1 class="display-large">About Recipe Finder</h1>
-            <p class="body-large">
-              Recipe Finder is a platform designed to help food lovers discover
-              and share delicious recipes. Users can browse a variety of
-              recipes, view detailed instructions, and connect with others who
-              share their passion for cooking. Whether you're a novice or an
-              experienced chef, Recipe Finder makes it easy to find your next
-              meal idea!
-            </p>
-            <h2 class="headline-small">Our Mission</h2>
-            <p class="body-medium">
-              Our mission is to create a vibrant community where food
-              enthusiasts can come together to share recipes, cooking tips, and
-              kitchen stories. We aim to make cooking more accessible,
-              inspiring, and enjoyable for everyone.
-            </p>
-            <h2 class="headline-small">Who Can Use Recipe Finder?</h2>
-            <p class="body-medium">
-              Recipe Finder is open to all users! Whether you're a home cook
-              looking for new ideas or a chef who wants to share your signature
-              dish, you can join our community. We also offer an Admin role for
-              those who want to manage the content and ensure everything runs
-              smoothly.
-            </p>
+          <div class="container about-section">
+            <div>
+              <h1 class="display-large">About Recipe Finder</h1>
+              <p class="body-large">
+                Recipe Finder is a platform designed to help food lovers discover
+                and share delicious recipes. Users can browse a variety of
+                recipes, view detailed instructions, and connect with others who
+                share their passion for cooking. Whether you're a novice or an
+                experienced chef, Recipe Finder makes it easy to find your next
+                meal idea!
+              </p>
+            </div>
+            <div>
+              <h2 class="headline-small">Our Mission</h2>
+              <p class="body-medium">
+                Our mission is to create a vibrant community where food
+                enthusiasts can come together to share recipes, cooking tips, and
+                kitchen stories. We aim to make cooking more accessible,
+                inspiring, and enjoyable for everyone.
+              </p>
+            </div>
+            <div>
+              <h2 class="headline-small">Who Can Use Recipe Finder?</h2>
+              <p class="body-medium">
+                Recipe Finder is open to all users! Whether you're a home cook
+                looking for new ideas or a chef who wants to share your signature
+                dish, you can join our community. We also offer an Admin role for
+                those who want to manage the content and ensure everything runs
+                smoothly.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -178,8 +184,7 @@
             <div class="contactTitle">
               <h2>Get In Touch</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod.
+                Let's Talk
               </p>
             </div>
 
@@ -189,7 +194,7 @@
                     <span class="material-symbols-outlined" aria-hidden="true">phone</span>
                 </div>
                 <div class="details">
-                  <span>Phone</span>
+                  <span class="label-medium">Phone</span>
                   <span>+201234567899</span>
                 </div>
               </div>
@@ -199,7 +204,7 @@
                     <span class="material-symbols-outlined" aria-hidden="true">email</span>
                 </div>
                 <div class="details">
-                  <span>Email</span>
+                  <span  class="label-medium">Email</span>
                   <span>kiro@gmail.com</span>
                 </div>
               </div>
@@ -209,8 +214,8 @@
                     <span class="material-symbols-outlined" aria-hidden="true">map</span>
                 </div>
                 <div class="details">
-                  <span>Location</span>
-                  <span>Giza,Dokii,FCAI</span>
+                  <span  class="label-medium">Location</span>
+                  <span>Giza, Dokii, FCAI</span>
                 </div>
               </div>
             </div>
@@ -220,22 +225,22 @@
           <section class="col right">
             <form class="messageForm">
               <div class="inputGroup halfWidth">
-                <input type="text" name="" required="required" />
+                <input type="text" name="" required="required" class="input-field body-large"/>
                 <label>Your Name</label>
               </div>
 
               <div class="inputGroup halfWidth">
-                <input type="email" name="" required="required" />
+                <input type="email" name="" required="required" class="input-field body-large"/>
                 <label>Email</label>
               </div>
 
               <div class="inputGroup fullWidth">
-                <input type="text" name="" required="required" />
+                <input type="text" name="" required="required" class="input-field body-large"/>
                 <label>Subject</label>
               </div>
 
               <div class="inputGroup fullWidth">
-                <textarea required="required"></textarea>
+                <textarea required="required" rows="5" class="input-field body-large"></textarea>
                 <label>Say Something</label>
               </div>
 
