@@ -119,6 +119,27 @@
     text-decoration: none;
 }
 
+.toast {
+    position: fixed;
+    top: 100px;
+    left: 90%;
+    transform: translateX(-90%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 9999;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  .toast.success {
+    background-color: #28a745;
+  }
+  .toast.error {
+    background-color: #dc3545;
+  }
+  
+
 @media (max-width: 768px) {
     .auth-container {
         flex-direction: column;

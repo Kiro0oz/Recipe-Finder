@@ -23,3 +23,25 @@ window.addEventListener("load", () => {
 
     $themeBtn.addEventListener("click", changeTheme)
 })
+
+// Remove the profile if not authenticated
+document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+    const profileButton = document.getElementById('profile-icon');
+  
+    if (isLoggedIn) {
+      if (profileButton) {
+        profileButton.style.display = "inline-block";
+      }
+    } else {
+      if (profileButton) {
+        profileButton.style.display = "none";
+      }
+
+      if (window.location.pathname.includes("userProfile.html")) {
+        window.location.href = "../Authentication/login.html";
+      }
+    }
+  });
+  
