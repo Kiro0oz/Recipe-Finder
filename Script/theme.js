@@ -24,24 +24,30 @@ window.addEventListener("load", () => {
     $themeBtn.addEventListener("click", changeTheme)
 })
 
-// Remove the profile if not authenticated
+// Remove the profile if not authenticated & display logout button
 document.addEventListener("DOMContentLoaded", function () {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  
-    const profileButton = document.getElementById('profile-icon');
-  
-    if (isLoggedIn) {
-      if (profileButton) {
-        profileButton.style.display = "inline-block";
-      }
-    } else {
-      if (profileButton) {
-        profileButton.style.display = "none";
-      }
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-      if (window.location.pathname.includes("userProfile.html")) {
-        window.location.href = "../Authentication/login.html";
-      }
-    }
-  });
+  const profileButton = document.getElementById('profile-icon');
+  const signInLink = document.querySelector('a[href="Pages/Authentication/login.html"]');
+  const logoutLink = document.getElementById('logout');
+
+  if (profileButton) {
+      profileButton.style.display = isLoggedIn ? "block" : "none";
+  }
+
+  if (!isLoggedIn && window.location.pathname.includes("userProfile.html")) {
+      window.location.href = "../Pages/Authentication/login.html";
+  }
+
+  if (signInLink) signInLink.style.display = isLoggedIn ? "none" : "";
+  if (logoutLink) logoutLink.style.display = isLoggedIn ? "" : "none";
+
+  if (logoutLink) {
+      logoutLink.addEventListener("click", function () {
+          localStorage.removeItem("isLoggedIn");
+          window.location.href = "Pages/Authentication/login.html"; 
+      });
+  }
+});
   
