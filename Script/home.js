@@ -1,4 +1,4 @@
-import { getLimitedRecipes } from "./api.js"
+import { getLimitedRecipes, getRecipesTags } from "./api.js"
 
 const searchField = document.querySelector("[data-search-field]")
 const searchBtn = document.querySelector("[data-search-btn]")
@@ -175,3 +175,28 @@ const categoryCuisinesMap = {
 }
 
 displayRecipes();
+
+
+//! ================== Render recipe tags dynamically ================== //
+
+const tagListContainer = document.querySelector(".tag-list");
+
+function createTagBadge(tag) {
+  return `
+    <a href="/Pages/recipies.html?tag=${encodeURIComponent(tag)}" class="badge-btn body-medium has-state">
+      ${tag}
+    </a>
+  `;
+}
+
+getRecipesTags().then(tags => {
+  if (tagListContainer) {
+    tagListContainer.innerHTML = "";
+
+    tags.forEach(tag => {
+      tagListContainer.innerHTML += createTagBadge(tag);
+    });
+  }
+}).catch(error => {
+  console.error("Failed to load recipe tags:", error);
+});

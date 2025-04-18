@@ -46,6 +46,7 @@ export const searchRecipe = async function (query) {
   }
 
 
+// Get limit recipes
  export const getLimitedRecipes = async (limit = 10) => {
     try {
       const response = await fetch(`https://dummyjson.com/recipes?limit=${limit}&select=name,image,cookTimeMinutes,cuisine,mealType`);
@@ -59,3 +60,19 @@ export const searchRecipe = async function (query) {
       return null;
     }
   };
+
+
+// Get all recipes tags
+export const getRecipesTags = async function () {
+  try {
+    const response = await fetch(`${DOMAIN}/recipes/tags`)
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch all recipes");
+    }
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.error("Error fetching all recipes:", error);
+  }
+}
