@@ -153,67 +153,57 @@
 
     <main class="detail-page-main">
       <article class="article container detail-page" data-detail-container>
+        
+        <!-- Banner image -->
         <figure class="detail-banner img-holder">
-            <img src="../assets/detail-banner.jpg" width="300" height="300" alt="Img" class="img-cover">
+            <img src="" width="300" height="300" alt="Recipe Image" class="img-cover">
         </figure>
-
+    
         <div class="detail-content">
-            <div class="title-wrapper">
-                <h1 class="display-small">Restaurant-Style Pan Seared Salmon</h1>
-                <button class="btn btn-secondary has-state has-icon saved">
-                    <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
-                    <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
-                    <span class="label-large unsave-text">Unsave</span>
-                </button>
+          
+          <!-- Recipe Title and Save button -->
+          <div class="title-wrapper">
+            <h1 class="display-small"></h1> <!-- Recipe name will be inserted here -->
+            <button class="btn btn-secondary has-state has-icon saved">
+              <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
+              <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
+              <span class="label-large unsave-text">Unsave</span>
+            </button>
+          </div>
+    
+          <!-- Author -->
+          <div class="detail-author label-large">
+            <span class="span">by</span> <span class="author-name"></span> <!-- Author name will be inserted here -->
+          </div>
+    
+          <!-- Recipe Stats (Ingredients, Time, Calories) -->
+          <div class="detail-stats">
+            <div class="stats-item">
+              <span class="display-medium"></span> <!-- Ingredients count will be inserted here -->
+              <span class="label-medium">Ingredients</span>
             </div>
-
-            <div class="detail-author label-large">
-                <span class="span">by</span> kiro adel
+            <div class="stats-item">
+              <span class="display-medium"></span> <!-- Cook time will be inserted here -->
+              <span class="label-medium">Minutes</span>
             </div>
-
-            <div class="detail-stats">
-                
-                <div class="stats-item">
-                    <span class="display-medium">4</span>
-                    <span class="label-medium">Ingredients</span>
-                </div>
-
-                <div class="stats-item">
-                    <span class="display-medium">15</span>
-                    <span class="label-medium">Minutes</span>
-                </div>
-
-                <div class="stats-item">
-                    <span class="display-medium">384</span>
-                    <span class="label-medium">Calories</span>
-                </div>
+            <div class="stats-item">
+              <span class="display-medium"></span> <!-- Calories will be inserted here -->
+              <span class="label-medium">Calories</span>
             </div>
-
-            <div class="tag-list">
-              <a href="/Pages/recipies.html" class="filter-chip label-large has-state">Fish & Seafood</a>
-              <a href="/Pages/recipies.html" class="filter-chip label-large has-state">American</a>
-              <a href="/Pages/recipies.html" class="filter-chip label-large has-state">Dinner</a>
-              <a href="/Pages/recipies.html" class="filter-chip label-large has-state">Salmon</a>
-            </div>
-
-            <h2 class="title-medium ingr-title">
-              Ingredients
-              <span class="label-medium">for 6 Servings</span>
-            </h2>
-
-            <ul class="body-large ingr-list">
-              <li class="ingr-item">
-                2 1/2 pounds skirt steak or sirloin flap steak
-              </li>
-              <li class="ingr-item">
-                Accompaniments: homemade burger buns , homemade ketchup , homemade mustard , homemade pickle relish , lettuce and tomato.
-              </li>
-            </ul>
-
+          </div>
+    
+          <div class="tag-list"> </div>
+    
+          <!-- Ingredients Section -->
+          <h2 class="title-medium ingr-title">
+            Ingredients
+            <span class="label-medium"></span> <!-- Servings count will be inserted here -->
+          </h2>
+    
+          <ul class="body-large ingr-list"></ul>
+    
+    
         </div>
-
-
-
       </article>
     </main>
 
@@ -228,5 +218,6 @@
             </a>
           </footer>
           <script src="../Script/theme.js"></script>
+          <script type="module" src="../Script/detail.js"></script>
   </body>
 </html>
