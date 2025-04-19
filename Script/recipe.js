@@ -1,4 +1,121 @@
-import { getLimitedRecipes } from './api.js'; 
+import { getLimitedRecipes, searchRecipe  } from './api.js'; 
+
+
+
+// Accordion
+
+const accordions = document.querySelectorAll("[data-accordion]")
+const initAccordions = function(ele) {
+  const btn = ele.querySelector("[data-accordion-btn]")
+  let isExpanded = false;
+
+  btn.addEventListener('click', function () {
+    isExpanded = isExpanded ? false :  true;
+    this.setAttribute("aria-expanded", isExpanded)
+  })
+}
+
+for (const accordion of accordions) {
+  initAccordions(accordion)
+}
+
+// Filter bar toggle
+const filterBar = document.querySelector("[data-filter-bar]")
+const filterTogglers = document.querySelectorAll("[data-filter-toggler]")
+const overlay = document.querySelector("[data-overlay]")
+
+
+filterTogglers.forEach(toggler => {
+  toggler.addEventListener('click', function () {
+    filterBar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    const bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = bodyOverflow === 'hidden' ? 'visible' : 'hidden';
+  });
+});
+
+
+// Filter buttons 
+const filterSubmit = document.querySelector("[data-filter-submit]")
+const filterClear = document.querySelector("[data-filter-clear]")
+const filterSearch = filterBar.querySelector("input[type='search']")
+
+// filterSubmit.addEventListener('click', function() {
+//   const filterCheckBoxes = filterBar.querySelectorAll("input:checked")
+
+//   const queries = [];
+
+//   if(filterSearch.value) {
+//     queries.push(["q", filterSearch.value])
+//   }
+
+//   if(filterCheckBoxes.length) {
+//     for (const checkbox of filterCheckBoxes) {
+//       const key = checkbox.parentElement.parentElement.dataset.filter;
+//       queries.push([key, checkbox.value])
+//     }
+//   }
+// })
+
+filterSubmit.addEventListener('click', async function () {
+  const filterCheckBoxes = filterBar.querySelectorAll("input:checked");
+  const queries = [];
+
+  let query = "";
+
+  // Build query string
+  if (filterSearch.value) {
+    query = filterSearch.value;
+  }
+
+  // You can extend this logic to handle checkbox filters later
+  // For now, we only support search by query string (q)
+  
+  try {
+    const data = await searchRecipe(query);
+    const recipes = data.recipes || [];
+
+    recipeList.innerHTML = ''; // clear previous results
+
+    if (recipes.length === 0) {
+      recipeList.innerHTML = '<p class="no-results">No recipes found.</p>';
+    } else {
+      recipes.forEach(recipe => {
+        const card = createRecipeCard(recipe);
+        recipeList.appendChild(card);
+      });
+    }
+
+    // Close filter bar after searching
+    filterBar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "visible";
+
+  } catch (error) {
+    console.error("Failed to search and display recipes:", error);
+  }
+});
+
+filterSearch.addEventListener("keydown", e => {
+  if(e.key === 'Enter') {
+    filterSubmit.click();
+  }
+})
+
+filterClear.addEventListener('click', function() {
+  const filterCheckBoxes = filterBar.querySelectorAll("input:checked")
+
+  filterCheckBoxes?.forEach(ele => ele.checked = false);
+  filterSearch.value &&= ""
+})
+
+
+const filterBtn = document.querySelector("[data-filter-btn]")
+
+window.addEventListener("scroll", e => {
+  filterBtn.classList[window.scrollY >= 120 ? 'add' : 'remove']('active')
+})
+
 
 const recipeList = document.querySelector('[data-grid-list]');
 
@@ -79,3 +196,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 } );
+
+
+// Get Result depend on Tag
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const tag = urlParams.get('tag');
+  if (tag) {
+    try {
+      const data = await searchRecipe(tag);
+      const recipes = data.recipes || [];
+
+      recipeList.innerHTML = ''; 
+
+      if (recipes.length === 0) {
+        recipeList.innerHTML = `<p class="no-results">No recipes found for "${tag}".</p>`;
+      } else {
+        recipes.forEach(recipe => {
+          const card = createRecipeCard(recipe);
+          recipeList.appendChild(card);
+        });
+      }
+    } catch (error) {
+      console.error('Error loading tag-based recipes:', error);
+    }
+  } else {
+    loadRecipes(); 
+  }
+});
+

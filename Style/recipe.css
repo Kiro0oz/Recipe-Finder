@@ -209,6 +209,8 @@
 /* Recipe Section */
 .recipe-container {
     padding-block-end: 36px;
+    width: 100%;
+    max-width: 1400px;
 }
 
 .recipe-container .grid-list {
@@ -233,6 +235,12 @@
     align-items: center;
     gap: 8px;
 }
+
+.no-results {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
 
 .btn-filter.active {
     position: fixed;
@@ -434,6 +442,6 @@ dialog {
     }
 
     .recipe-container {
-        margin: auto;
+
     }
 }

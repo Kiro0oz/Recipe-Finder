@@ -1,4 +1,4 @@
-import { getSingleRecipe } from './api.js'; // Adjust path if needed
+import { getSingleRecipe } from './api.js'; 
 
 // Get recipe ID from the URL
 function getQueryParam(param) {

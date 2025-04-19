@@ -117,7 +117,7 @@
     .detail-page {
         display: grid;
         grid-template-columns: 0.8fr 1fr;
-        align-items: center;
+        align-items: start;
         gap: 36px;
     }
 

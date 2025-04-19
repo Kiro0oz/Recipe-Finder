@@ -91,11 +91,6 @@ const mealTypePanels = {
       console.log(gridList)
       if (!gridList) return;
   
-    //   if (!gridList) {
-    //     gridList = document.createElement("div");
-    //     panel.prepend(gridList);
-    //   }
-  
       const mealRecipes = recipes.filter(r =>
         r.mealType?.some(m => m.toLowerCase() === meal)
       ).slice(0, 5);
