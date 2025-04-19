@@ -26,10 +26,10 @@ window.addEventListener("load", () => {
 
 // Remove the profile if not authenticated & display logout button
 document.addEventListener("DOMContentLoaded", function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
 
   const profileButton = document.getElementById('profile-icon');
-  const signInLink = document.querySelector('a[href="Pages/Authentication/login.html"]');
+  const signInLink = document.getElementById('SignIn');
   const logoutLink = document.getElementById('logout');
 
   if (profileButton) {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutLink) {
       logoutLink.addEventListener("click", function () {
           localStorage.removeItem("isLoggedIn");
-          window.location.href = "Pages/Authentication/login.html"; 
+          window.location.href = "../Pages/Authentication/login.html"; 
       });
   }
 });

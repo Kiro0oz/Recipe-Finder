@@ -120,8 +120,9 @@ window.addEventListener("scroll", e => {
 const recipeList = document.querySelector('[data-grid-list]');
 
 function createRecipeCard(recipe) {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+    const user = JSON.parse(localStorage.getItem('user'));
+    const isAdmin = user?.isAdmin === true;
   const card = document.createElement('div');
   card.className = 'card';
 
@@ -188,8 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadRecipes(); 
 
     const addRecipeBtn = document.getElementById('Add-recipe');
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+    const user = JSON.parse(localStorage.getItem('user'));
+    const isAdmin = user?.isAdmin === true;
   
     if (!isLoggedIn || !isAdmin) {
       addRecipeBtn.style.display = 'none';
@@ -224,4 +226,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadRecipes(); 
   }
 });
+
+
 
