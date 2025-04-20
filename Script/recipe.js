@@ -1,9 +1,6 @@
-import { getLimitedRecipes, searchRecipe  } from './api.js'; 
-
-
+import { getLimitedRecipes, searchRecipe, addRecipe, updateRecipe, deleteRecipe  } from './api.js'; 
 
 // Accordion
-
 const accordions = document.querySelectorAll("[data-accordion]")
 const initAccordions = function(ele) {
   const btn = ele.querySelector("[data-accordion-btn]")
@@ -40,22 +37,6 @@ const filterSubmit = document.querySelector("[data-filter-submit]")
 const filterClear = document.querySelector("[data-filter-clear]")
 const filterSearch = filterBar.querySelector("input[type='search']")
 
-// filterSubmit.addEventListener('click', function() {
-//   const filterCheckBoxes = filterBar.querySelectorAll("input:checked")
-
-//   const queries = [];
-
-//   if(filterSearch.value) {
-//     queries.push(["q", filterSearch.value])
-//   }
-
-//   if(filterCheckBoxes.length) {
-//     for (const checkbox of filterCheckBoxes) {
-//       const key = checkbox.parentElement.parentElement.dataset.filter;
-//       queries.push([key, checkbox.value])
-//     }
-//   }
-// })
 
 filterSubmit.addEventListener('click', async function () {
   const filterCheckBoxes = filterBar.querySelectorAll("input:checked");
@@ -63,19 +44,16 @@ filterSubmit.addEventListener('click', async function () {
 
   let query = "";
 
-  // Build query string
   if (filterSearch.value) {
     query = filterSearch.value;
   }
 
-  // You can extend this logic to handle checkbox filters later
-  // For now, we only support search by query string (q)
   
   try {
     const data = await searchRecipe(query);
     const recipes = data.recipes || [];
 
-    recipeList.innerHTML = ''; // clear previous results
+    recipeList.innerHTML = ''; 
 
     if (recipes.length === 0) {
       recipeList.innerHTML = '<p class="no-results">No recipes found.</p>';
@@ -86,7 +64,7 @@ filterSubmit.addEventListener('click', async function () {
       });
     }
 
-    // Close filter bar after searching
+  
     filterBar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.style.overflow = "visible";
@@ -166,6 +144,25 @@ function createRecipeCard(recipe) {
     </div>` : ''}
   `;
 
+  if (isLoggedIn && isAdmin) {
+    const adminActions = card.querySelectorAll('.admin-actions');
+  
+    const editBtn = adminActions[0]?.querySelector('.material-symbols-outlined');
+    const deleteBtn = adminActions[1]?.querySelector('.material-symbols-outlined');
+  
+    if (editBtn) {
+      editBtn.addEventListener('click', () => {
+        openEditDialog(recipe);
+      });
+    }
+  
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => {
+        openDeleteConfirm(recipe.id, card);
+      });
+    }
+  }
+
   return card;
 }
 
@@ -228,4 +225,109 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
+// Add recipe for admin 
+const addRecipeForm = document.querySelector('.Add-recipe-form');
+const dialog = document.getElementById('recipeDialog');
 
+addRecipeForm.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const time = parseInt(document.getElementById('time').value);
+  const calories = parseInt(document.getElementById('calories').value);
+  const ingredientsText = document.getElementById('ingredients').value;
+  const imageInput = document.getElementById('image');
+  const imageFile = imageInput.files[0];
+
+  const imageURL = imageFile ? URL.createObjectURL(imageFile) : 'https://via.placeholder.com/200';
+
+
+  const newRecipe = {
+    name,
+    cookTimeMinutes: time,
+    caloriesPerServing: calories,
+    servings: 2,
+    cuisine: 'Custom',
+    tags: ['Custom'],
+    ingredients: ingredientsText.split(',').map(i => i.trim()),
+    instructions: ['Add your steps here'], 
+    image: imageURL 
+  };
+  try {
+    const added = await addRecipe(newRecipe);
+
+    const card = createRecipeCard(added);
+    recipeList.prepend(card); 
+
+    dialog.close();
+    addRecipeForm.reset();
+  } catch (error) {
+    console.error('Failed to add recipe:', error);
+  }
+});
+
+
+
+let currentEditingId = null;
+let cardToDelete = null;
+
+
+function openEditDialog(recipe) {
+  currentEditingId = recipe.id;
+
+  document.getElementById('edit-id').value = recipe.id;
+  document.getElementById('edit-name').value = recipe.name;
+  document.getElementById('edit-time').value = recipe.cookTimeMinutes;
+  document.getElementById('editRecipeDialog').showModal();
+}
+
+
+document.getElementById('edit-recipe-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const id = currentEditingId;
+  const name = document.getElementById('edit-name').value;
+  const time = parseInt(document.getElementById('edit-time').value);
+  const imageInput = document.getElementById('edit-image');
+  const imageFile = imageInput.files[0];
+  const imageURL = imageFile ? URL.createObjectURL(imageFile) : null;
+
+  const updatedRecipe = {
+    name,
+    cookTimeMinutes: time,
+    caloriesPerServing: calories,
+    ingredients,
+  };
+
+  if (imageURL) updatedRecipe.image = imageURL;
+
+  try {
+    const updated = await updateRecipe(id, updatedRecipe);
+    await loadRecipes();
+    document.getElementById('editRecipeDialog').close();
+  } catch (err) {
+    console.error('Error updating recipe:', err);
+  }
+});
+
+
+
+function openDeleteConfirm(id, cardElement) {
+  cardToDelete = { id, cardElement };
+  document.getElementById('deleteConfirmDialog').showModal();
+}
+
+document.getElementById('delete-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  if (cardToDelete) {
+    try {
+      await deleteRecipe(cardToDelete.id);
+      cardToDelete.cardElement.remove();
+      cardToDelete = null;
+    } catch (err) {
+      console.error('Error deleting recipe:', err);
+    }
+  }
+
+  document.getElementById('deleteConfirmDialog').close();
+});

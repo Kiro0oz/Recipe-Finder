@@ -282,6 +282,10 @@ main {
     letter-spacing: 0.5px;
 }
 
+.btn-danger {
+    background-color: rgb(165, 6, 6);
+}
+
 /* #Reused Style */
 .has-state {
     position: relative;

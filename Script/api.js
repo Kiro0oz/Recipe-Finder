@@ -76,3 +76,57 @@ export const getRecipesTags = async function () {
     console.error("Error fetching all recipes:", error);
   }
 }
+
+
+// Add Recipe
+export const addRecipe = async function (recipeData) {
+  try {
+    const response = await fetch(`${DOMAIN}/recipes/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(recipeData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add recipe');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error adding recipe:', error);
+  }
+};
+
+// update Recipe
+export const updateRecipe = async function (id, recipeData) {
+  try {
+    const response = await fetch(`${DOMAIN}/recipes/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(recipeData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add recipe');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error adding recipe:', error);
+  }
+};
+
+// delete Recipe
+export const deleteRecipe = async function (id) {
+  try {
+    const response = await fetch(`${DOMAIN}/recipes/${id}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error adding recipe:', error);
+  }
+};

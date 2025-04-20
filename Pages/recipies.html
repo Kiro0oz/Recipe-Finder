@@ -514,6 +514,38 @@
               </form>
             </dialog>
 
+            <dialog id="editRecipeDialog">
+              <form method="dialog" class="Add-recipe-form" id="edit-recipe-form">
+                <h2 class="headline-small">Edit Recipe</h2>
+            
+                <input type="hidden" id="edit-id" />
+            
+                <label for="edit-image" class="label-large">Recipe Image:</label>
+                <input type="file" id="edit-image" name="image" accept="image/*">
+            
+                <label for="edit-name" class="label-large">Recipe Name:</label>
+                <input type="text" id="edit-name" name="name" required class="title-small">
+            
+                <label for="edit-time" class="label-large">Recipe Time (minutes):</label>
+                <input type="number" id="edit-time" name="time" min="1" required class="title-small">
+            
+                <div class="filter-actions">
+                  <button type="submit" class="btn btn-primary label-large">Update</button>
+                  <button type="button" class="btn btn-secondary label-large" onclick="document.getElementById('editRecipeDialog').close()">Close</button>
+                </div>
+              </form>
+            </dialog>
+
+            <dialog id="deleteConfirmDialog">
+              <form method="dialog" id="delete-form">
+                <h2 class="headline-small">Are you sure you want to delete this recipe?</h2>
+                <div class="filter-actions">
+                  <button type="submit" class="btn btn-danger label-large">Yes, Delete</button>
+                  <button type="button" class="btn btn-secondary label-large" onclick="document.getElementById('deleteConfirmDialog').close()">Cancel</button>
+                </div>
+              </form>
+            </dialog>
+
           </div>
 
           <div class="grid-list recipes-list" data-grid-list>

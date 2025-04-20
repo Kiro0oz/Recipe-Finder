@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 3000);
     }
   });
-  
+
 
   // Login 
   document.addEventListener("DOMContentLoaded", function () {
