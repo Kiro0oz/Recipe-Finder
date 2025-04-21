@@ -14,22 +14,35 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Validations
       if (!firstName || !lastName || !phone || !email || !password || !confirmPassword) {
-        showToast("All fields are required!", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'All fields are required!',
+        });
         return;
       }
   
       if (!validateEmail(email)) {
-        showToast("Invalid email format!", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid email format!',
+        });
         return;
       }
   
       if (password.length < 6) {
-        showToast("Password must be at least 6 characters.", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Password too short',
+          text: 'Password must be at least 6 characters.',
+        });
         return;
       }
   
       if (password !== confirmPassword) {
-        showToast("Passwords do not match!", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Passwords do not match!',
+        });
         return;
       }
   
@@ -44,8 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
   
       localStorage.setItem("user", JSON.stringify(user));
   
-      showToast("Registered successfully!", "success");
-      window.location.href = "../Pages/Authentication/login.html";
+      Swal.fire({
+        icon: 'success',
+        title: 'Registered successfully!',
+      }).then(() => {
+        window.location.href = "./login.html";
+      });
   
       form.reset();
     });
@@ -55,16 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return re.test(String(email).toLowerCase());
     }
   
-    function showToast(message, type) {
-      const toast = document.createElement("div");
-      toast.className = `toast ${type}`;
-      toast.innerText = message;
-      document.body.appendChild(toast);
-  
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
-    }
   });
 
 
@@ -81,16 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
   
         if (!storedUser) {
-          alert("No user found. Please register first.");
+          Swal.fire({
+            icon: 'warning',
+            title: 'No user found',
+            text: 'Please register first.',
+          });
           return;
         }
   
         if (emailInput === storedUser.email && passwordInput === storedUser.password) {
-          alert("Login successful!");
-          localStorage.setItem("isLoggedIn", "true");
-          window.location.href = "../recipies.html";
+          Swal.fire({
+            icon: 'success',
+            title: 'Login successful!',
+          }).then(() => {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "../recipies.html";
+          });
         } else {
-          alert("Incorrect email or password.");
+          Swal.fire({
+            icon: 'error',
+            title: 'Login failed',
+            text: 'Incorrect email or password.',
+          });
         }
       });
     

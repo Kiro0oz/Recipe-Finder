@@ -161,7 +161,11 @@ function setupBookmarkButtons() {
       const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
 
       if (!isLoggedIn) {
-        alert("Please log in to save recipes.");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Login Required',
+          text: 'Please log in to save recipes.',
+        });
         return;
       }
       const name = card.querySelector(".card-link").textContent;
@@ -179,13 +183,21 @@ function setupBookmarkButtons() {
         localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
         btn.classList.remove("removed");
         btn.classList.add("saved");
-        alert("Recipe saved!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Recipe Saved',
+          text: `"${name}" has been added to your favorites.`,
+        });
       } else {
         savedRecipes.splice(existingIndex, 1);
         localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
         btn.classList.remove("saved");
         btn.classList.add("removed");
-        alert("Recipe removed.");
+        Swal.fire({
+          icon: 'info',
+          title: 'Recipe Removed',
+          text: `"${name}" has been removed from your favorites.`,
+        });
       }
     });
   });
