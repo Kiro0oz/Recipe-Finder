@@ -268,32 +268,39 @@ document.addEventListener('DOMContentLoaded', () => {
 } );
 
 
-// Get Result depend on Tag
+// Get Result depend on Tag or Query
 document.addEventListener('DOMContentLoaded', async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tag = urlParams.get('tag');
-  if (tag) {
+  const query = urlParams.get('q');
+
+
+  if (tag || query) {
+    const searchTerm = tag || query;
     try {
-      const data = await searchRecipe(tag);
+      const data = await searchRecipe(searchTerm);
       const recipes = data.recipes || [];
+      console.log(recipes)
 
       recipeList.innerHTML = ''; 
 
       if (recipes.length === 0) {
-        recipeList.innerHTML = `<p class="no-results">No recipes found for "${tag}".</p>`;
+        recipeList.innerHTML = `<p class="no-results">No recipes found for "${searchTerm}".</p>`;
       } else {
         recipes.forEach(recipe => {
           const card = createRecipeCard(recipe);
           recipeList.appendChild(card);
         });
       }
+      setupBookmarkButtons(); 
     } catch (error) {
-      console.error('Error loading tag-based recipes:', error);
+      console.error('Error loading searched/tagged recipes:', error);
     }
   } else {
     loadRecipes(); 
   }
 });
+
 
 
 // Add recipe for admin 
@@ -402,3 +409,5 @@ document.getElementById('delete-form').addEventListener('submit', async function
 
   document.getElementById('deleteConfirmDialog').close();
 });
+
+
