@@ -88,7 +88,6 @@ const mealTypePanels = {
       if (!panel) return;
   
       let gridList = panel.querySelector(".grid-list");
-      console.log(gridList)
       if (!gridList) return;
   
       const mealRecipes = recipes.filter(r =>
@@ -134,6 +133,65 @@ function createRecipeCard(recipe) {
   `;
 }
 
+function setupBookmarkButtons() {
+  document.querySelectorAll(".icon-btn").forEach(btn => {
+    const card = btn.closest(".card");
+    if (!card) return; 
+  
+    const linkElement = card.querySelector(".card-link");
+    if (!linkElement) return; 
+    const link = linkElement.getAttribute("href");
+    const idMatch = link.match(/id=(\d+)/);
+    const id = idMatch ? idMatch[1] : null;
+
+    if (!id) return;
+
+    const saved = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+    const isSaved = saved.some(recipe => recipe.id === id);
+
+    if (isSaved) {
+      btn.classList.remove("removed");
+      btn.classList.add("saved");
+    } else {
+      btn.classList.remove("saved");
+      btn.classList.add("removed");
+    }
+
+    btn.addEventListener("click", () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+
+      if (!isLoggedIn) {
+        alert("Please log in to save recipes.");
+        return;
+      }
+      const name = card.querySelector(".card-link").textContent;
+      const image = card.querySelector("img").src;
+      const timeText = card.querySelector(".label-medium").textContent;
+      const time = parseInt(timeText);
+      const recipe = { id, name, image, cookTimeMinutes: time };
+
+      let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+
+      const existingIndex = savedRecipes.findIndex(r => r.id === id);
+
+      if (existingIndex === -1) {
+        savedRecipes.push(recipe);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        btn.classList.remove("removed");
+        btn.classList.add("saved");
+        alert("Recipe saved!");
+      } else {
+        savedRecipes.splice(existingIndex, 1);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        btn.classList.remove("saved");
+        btn.classList.add("removed");
+        alert("Recipe removed.");
+      }
+    });
+  });
+}
+
+
 const categoryCuisinesMap = {
     asian: ["asian", "pakistani", "japanese", "korean", "indian"],
     italian: ["italian"]
@@ -153,9 +211,8 @@ const categoryCuisinesMap = {
   
       wrapper.innerHTML = '';
   
-      filteredRecipes.forEach(recipe => {
-        wrapper.innerHTML += createRecipeCard(recipe);
-      });
+      const cardsHTML = filteredRecipes.map(createRecipeCard).join("");
+      wrapper.innerHTML += cardsHTML;
   
       wrapper.innerHTML += `
         <li class="slider-item" data-slider-item>
@@ -167,6 +224,7 @@ const categoryCuisinesMap = {
     });
 
     displayMealTypeRecipes(recipes);
+    setupBookmarkButtons()
 }
 
 displayRecipes();
@@ -195,3 +253,5 @@ getRecipesTags().then(tags => {
 }).catch(error => {
   console.error("Failed to load recipe tags:", error);
 });
+
+

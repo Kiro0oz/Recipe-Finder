@@ -166,6 +166,65 @@ function createRecipeCard(recipe) {
   return card;
 }
 
+function setupBookmarkButtons() {
+  document.querySelectorAll(".icon-btn").forEach(btn => {
+    const card = btn.closest(".card");
+    if (!card) return; 
+  
+    const linkElement = card.querySelector(".card-link");
+    if (!linkElement) return; 
+    const link = linkElement.getAttribute("href");
+    const idMatch = link.match(/id=(\d+)/);
+    const id = idMatch ? idMatch[1] : null;
+
+    if (!id) return;
+
+    const saved = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+    const isSaved = saved.some(recipe => recipe.id === id);
+
+    if (isSaved) {
+      btn.classList.remove("removed");
+      btn.classList.add("saved");
+    } else {
+      btn.classList.remove("saved");
+      btn.classList.add("removed");
+    }
+
+    btn.addEventListener("click", () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+
+      if (!isLoggedIn) {
+        alert("Please log in to save recipes.");
+        return;
+      }
+      const name = card.querySelector(".card-link").textContent;
+      const image = card.querySelector("img").src;
+      const timeText = card.querySelector(".label-medium").textContent;
+      const time = parseInt(timeText);
+      const recipe = { id, name, image, cookTimeMinutes: time };
+
+      let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+
+      const existingIndex = savedRecipes.findIndex(r => r.id === id);
+
+      if (existingIndex === -1) {
+        savedRecipes.push(recipe);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        btn.classList.remove("removed");
+        btn.classList.add("saved");
+        alert("Recipe saved!");
+      } else {
+        savedRecipes.splice(existingIndex, 1);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        btn.classList.remove("saved");
+        btn.classList.add("removed");
+        alert("Recipe removed.");
+      }
+    });
+  });
+}
+
+
 async function loadRecipes() {
   try {
     const response = await getLimitedRecipes(50);
@@ -177,13 +236,14 @@ async function loadRecipes() {
       const card = createRecipeCard(recipe);
       recipeList.appendChild(card);
     });
+    setupBookmarkButtons()
   } catch (error) {
     console.error('Error loading recipes:', error);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => { 
-    loadRecipes(); 
+  loadRecipes(); 
 
     const addRecipeBtn = document.getElementById('Add-recipe');
     const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';

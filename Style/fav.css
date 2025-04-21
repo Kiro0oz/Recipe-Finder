@@ -14,3 +14,30 @@
     margin-bottom: 12px;
 }
 
+.no-results {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+  }
+
+  
+  .go-save-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .go-save-link:hover {
+    text-decoration: underline;
+  }
+
+  .add-more-img {
+    width: 100%;
+    max-width: 500px;
+  }
