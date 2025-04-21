@@ -43,6 +43,10 @@
     grid-template-columns: repeat(3, 1fr);
 }
 
+.detailed-img {
+    max-width: 100%;
+}
+
 .detail-stats .stats-item {
     display: flex;
     flex-direction: column;
