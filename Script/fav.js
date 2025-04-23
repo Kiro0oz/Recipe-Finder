@@ -38,7 +38,14 @@ function createSavedRecipeCard(recipe) {
       saved = saved.filter(r => r.id !== recipe.id);
       localStorage.setItem('savedRecipes', JSON.stringify(saved));
       card.parentElement.remove(); 
-      alert('Recipe removed from favorites.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Recipe Removed',
+        text: `The recipe has been removed from your favorites.`,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
     });
   
     return card;
@@ -48,7 +55,6 @@ function createSavedRecipeCard(recipe) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-  
     const recipeList = document.querySelector('[data-slider-wrapper]');
     recipeList.innerHTML = ''; 
   
@@ -57,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyMessage.className = 'no-results';
         emptyMessage.innerHTML = `
           <img src="../assets/Recipe book-pana.png" alt="Add more recipe" class="add-more-img">
-          <a href="../Pages/recipies.html" class="go-save-link">Go back to homepage and add some favorites!</a>
+          <a href="../Pages/recipies.html" class="go-save-link">Go back to recipes and add some favorites!</a>
         `;
         recipeList.parentElement.appendChild(emptyMessage);
         return;
