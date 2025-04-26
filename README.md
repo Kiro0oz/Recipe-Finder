@@ -1,4 +1,4 @@
-#  Recipe Finder Website - Phase 1
+#  Recipe Finder Website - Phase 2
 
 ![Recipe Finder](https://github.com/user-attachments/assets/72d88fe1-1e0b-4ca7-8cc5-10c949957d6b)
 
