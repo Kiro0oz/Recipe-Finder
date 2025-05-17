@@ -1,4 +1,80 @@
 const DOMAIN = 'https://dummyjson.com'
+const BACKENDDOMAIN = 'http://127.0.0.1:8000'
+
+
+// Register
+export const register = async function(user) {
+  try {
+    const response = await fetch(`${BACKENDDOMAIN}/api/auth/register/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      throw new Error("Registration failed");
+    }
+
+    const data = await response.json();
+    console.log(data)
+    return data;
+
+  } catch (error) {
+    console.error("Error during registration:", error);
+    throw error; 
+  }
+};
+
+// Login
+export const login = async function (credentials) {
+  try {
+    const response = await fetch(`${BACKENDDOMAIN}/api/auth/login/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw error;
+  }
+};
+
+// Get Role of user
+export const getRole = async function(accessToken) {
+  try {
+    const response = await fetch(`${BACKENDDOMAIN}/api/auth/role/`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch user role");
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Error during fetching role:", error);
+    throw error;
+  }
+};
 
 // Get All recipes
 export const getRecipes = async function () {
