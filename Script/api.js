@@ -152,9 +152,15 @@ export const removeFromFav = async function (id, accessToken) {
   }
 };
 
-export const getAllFav = async function () {
+export const getAllFav = async function (accessToken) {
   try {
-    const response = await fetch(`${BACKENDDOMAIN}/api/recipe/favorites/`);
+    const response = await fetch(`${BACKENDDOMAIN}/api/recipe/favorites/`, {
+       method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch all favorites");

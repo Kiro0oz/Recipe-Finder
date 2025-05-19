@@ -122,7 +122,7 @@ function createRecipeCard(recipe) {
               <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
               <span class="label-medium">${recipe.cookTimeMinutes} minutes</span>
             </div>
-            <button class="icon-btn has-state removed" aria-label="Add to saved recipes">
+            <button class="icon-btn has-state ${recipe.is_favorited ? "saved" : "removed"}" aria-label="Add to saved recipes">
               <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
               <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
             </button>
@@ -133,76 +133,70 @@ function createRecipeCard(recipe) {
   `;
 }
 
-function setupBookmarkButtons() {
-  document.querySelectorAll(".icon-btn").forEach(btn => {
+async function setupBookmarkButtons() {
+  document.querySelectorAll(".icon-btn").forEach((btn) => {
     const card = btn.closest(".card");
-    if (!card) return; 
-  
+    if (!card) return;
+
     const linkElement = card.querySelector(".card-link");
-    if (!linkElement) return; 
+    if (!linkElement) return;
     const link = linkElement.getAttribute("href");
     const idMatch = link.match(/id=(\d+)/);
     const id = idMatch ? idMatch[1] : null;
 
     if (!id) return;
 
-    const saved = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-    const isSaved = saved.some(recipe => recipe.id === id);
+    // Handle click to add/remove from favorites using backend
+    btn.addEventListener("click", async () => {
+      const accessToken = localStorage.getItem("accessToken"); 
 
-    if (isSaved) {
-      btn.classList.remove("removed");
-      btn.classList.add("saved");
-    } else {
-      btn.classList.remove("saved");
-      btn.classList.add("removed");
-    }
-
-    btn.addEventListener("click", () => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
-
-      if (!isLoggedIn) {
+      if (!accessToken) {
         Swal.fire({
-          icon: 'warning',
-          title: 'Login Required',
-          text: 'Please log in to save recipes.',
+          icon: "warning",
+          title: "Login Required",
+          text: "Please log in to save recipes.",
         });
         return;
       }
+
       const name = card.querySelector(".card-link").textContent;
       const image = card.querySelector("img").src;
       const timeText = card.querySelector(".label-medium").textContent;
       const time = parseInt(timeText);
-      const recipe = { id, name, image, cookTimeMinutes: time };
 
-      let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+      const isCurrentlySaved = btn.classList.contains("saved");
 
-      const existingIndex = savedRecipes.findIndex(r => r.id === id);
-
-      if (existingIndex === -1) {
-        savedRecipes.push(recipe);
-        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
-        btn.classList.remove("removed");
-        btn.classList.add("saved");
+      try {
+        if (!isCurrentlySaved) {
+          await addToFav(id, accessToken);
+          btn.classList.remove("removed");
+          btn.classList.add("saved");
+          Swal.fire({
+            icon: "success",
+            title: "Recipe Saved",
+            text: `"${name}" has been added to your favorites.`,
+          });
+        } else {
+          await removeFromFav(id, accessToken);
+          btn.classList.remove("saved");
+          btn.classList.add("removed");
+          Swal.fire({
+            icon: "info",
+            title: "Recipe Removed",
+            text: `"${name}" has been removed from your favorites.`,
+          });
+        }
+      } catch (error) {
+        console.error("Error managing favorite:", error);
         Swal.fire({
-          icon: 'success',
-          title: 'Recipe Saved',
-          text: `"${name}" has been added to your favorites.`,
-        });
-      } else {
-        savedRecipes.splice(existingIndex, 1);
-        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
-        btn.classList.remove("saved");
-        btn.classList.add("removed");
-        Swal.fire({
-          icon: 'info',
-          title: 'Recipe Removed',
-          text: `"${name}" has been removed from your favorites.`,
+          icon: "error",
+          title: "Error",
+          text: "Something went wrong. Please try again.",
         });
       }
     });
   });
 }
-
 
 const categoryCuisinesMap = {
     asian: ["asian", "pakistani", "japanese", "korean", "indian"],
@@ -210,7 +204,8 @@ const categoryCuisinesMap = {
   };
 
   async function displayRecipes() {
-    const response = await getLimitedRecipes(30);
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await getLimitedRecipes(50,accessToken);
     const recipes = response.recipes;
   
     sliderWrappers.forEach(wrapper => {
