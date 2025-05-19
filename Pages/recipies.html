@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +29,9 @@
       <nav class="navbar">
         <ul class="navbar-list">
           <li>
-            <a href="../index.html" class="navbar-link title-small has-state">Home</a>
+            <a href="../index.html" class="navbar-link title-small has-state"
+              >Home</a
+            >
           </li>
           <li>
             <a href="#" class="navbar-link title-small has-state active"
@@ -37,16 +39,12 @@
             >
           </li>
           <li>
-            <a
-              href="./about.html"
-              class="navbar-link title-small has-state"
+            <a href="./about.html" class="navbar-link title-small has-state"
               >About</a
             >
           </li>
           <li>
-            <a
-              href="./favorites.html"
-              class="navbar-link title-small has-state"
+            <a href="./favorites.html" class="navbar-link title-small has-state"
               >Favorites</a
             >
           </li>
@@ -175,7 +173,7 @@
                   id="search"
                   class="input-field body-large"
                   placeholder="Search recipes"
-                /> 
+                />
               </div>
             </div>
 
@@ -476,7 +474,8 @@
 
             <button
               onclick="document.getElementById('recipeDialog').showModal()"
-              class="btn btn-primary label-large" id="Add-recipe"
+              class="btn btn-primary label-large"
+              id="Add-recipe"
             >
               Add Recipe
             </button>
@@ -486,22 +485,119 @@
                 <h2 class="headline-small">Add New Recipe</h2>
 
                 <label for="image" class="label-large">Recipe Image:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
-          
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  required
+                />
+
                 <label for="name" class="label-large">Recipe Name:</label>
-                <input type="text" id="name" name="name" required class="title-small">
-          
-                <label for="time" class="label-large">Recipe Time (minutes):</label>
-                <input type="number" id="time" name="time" min="1" required class="title-small">
-          
-                <label for="calories" class="label-large">Recipe Calories:</label>
-                <input type="number" id="calories" name="calories" min="1" required class="title-small">
-          
-                <label for="ingredients" class="label-large">Ingredients:</label>
-                <textarea id="ingredients" name="ingredients" rows="4" required class="title-small"></textarea>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="title-small"
+                />
+
+                <label for="prepTime" class="label-large"
+                  >Prep Time (minutes):</label
+                >
+                <input
+                  type="number"
+                  id="prepTime"
+                  name="prepTime"
+                  min="0"
+                  required
+                  class="title-small"
+                />
+
+                <label for="cookTime" class="label-large"
+                  >Cook Time (minutes):</label
+                >
+                <input
+                  type="number"
+                  id="cookTime"
+                  name="cookTime"
+                  min="0"
+                  required
+                  class="title-small"
+                />
+
+                <label for="calories" class="label-large"
+                  >Calories per Serving:</label
+                >
+                <input
+                  type="number"
+                  id="calories"
+                  name="calories"
+                  min="1"
+                  required
+                  class="title-small"
+                />
+
+                <label for="servings" class="label-large">Servings:</label>
+                <input
+                  type="number"
+                  id="servings"
+                  name="servings"
+                  min="1"
+                  required
+                  class="title-small"
+                />
+
+                <label for="cuisine" class="label-large">Cuisine:</label>
+                <input
+                  type="text"
+                  id="cuisine"
+                  name="cuisine"
+                  required
+                  class="title-small"
+                />
+
+                <label for="tags" class="label-large"
+                  >Meal Type (comma separated):</label
+                >
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  required
+                  class="title-small"
+                />
+
+                <label for="ingredients" class="label-large"
+                  >Ingredients (comma separated):</label
+                >
+                <textarea
+                  id="ingredients"
+                  name="ingredients"
+                  rows="4"
+                  required
+                  class="title-small"
+                ></textarea>
+
+                <label for="instructions" class="label-large"
+                  >Instructions (each step separated by newline):</label
+                >
+                <textarea
+                  id="instructions"
+                  name="instructions"
+                  rows="4"
+                  required
+                  class="title-small"
+                ></textarea>
 
                 <div class="filter-actions">
-                  <button type="submit" class="btn btn-primary label-large" data-add-submit>Submit</button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary label-large"
+                    data-add-submit
+                  >
+                    Submit
+                  </button>
                   <button
                     type="button"
                     class="btn btn-secondary label-large has-state"
@@ -515,49 +611,163 @@
             </dialog>
 
             <dialog id="editRecipeDialog">
-              <form method="dialog" class="Add-recipe-form" id="edit-recipe-form">
+              <form
+                method="dialog"
+                class="Add-recipe-form"
+                id="edit-recipe-form"
+              >
                 <h2 class="headline-small">Edit Recipe</h2>
-            
                 <input type="hidden" id="edit-id" />
-            
-                <label for="edit-image" class="label-large">Recipe Image:</label>
-                <input type="file" id="edit-image" name="image" accept="image/*">
-            
+
+                <label for="edit-image" class="label-large"
+                  >Recipe Image:</label
+                >
+                <input
+                  type="file"
+                  id="edit-image"
+                  name="image"
+                  accept="image/*"
+                />
+
                 <label for="edit-name" class="label-large">Recipe Name:</label>
-                <input type="text" id="edit-name" name="name" required class="title-small">
-            
-                <label for="edit-time" class="label-large">Recipe Time (minutes):</label>
-                <input type="number" id="edit-time" name="time" min="1" required class="title-small">
-            
+                <input
+                  type="text"
+                  id="edit-name"
+                  name="name"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-prep-time" class="label-large"
+                  >Prep Time (minutes):</label
+                >
+                <input
+                  type="number"
+                  id="edit-prep-time"
+                  name="prepTime"
+                  min="0"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-cook-time" class="label-large"
+                  >Cook Time (minutes):</label
+                >
+                <input
+                  type="number"
+                  id="edit-cook-time"
+                  name="cookTime"
+                  min="0"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-servings" class="label-large">Servings:</label>
+                <input
+                  type="number"
+                  id="edit-servings"
+                  name="servings"
+                  min="1"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-cuisine" class="label-large">Cuisine:</label>
+                <input
+                  type="text"
+                  id="edit-cuisine"
+                  name="cuisine"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-calories" class="label-large"
+                  >Calories per Serving:</label
+                >
+                <input
+                  type="number"
+                  id="edit-calories"
+                  name="calories"
+                  min="1"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-mealType" class="label-large"
+                  >Meal Type (comma-separated):</label
+                >
+                <input
+                  type="text"
+                  id="edit-mealType"
+                  name="mealType"
+                  required
+                  class="title-small"
+                />
+
+                <label for="edit-ingredients" class="label-large"
+                  >Ingredients (comma-separated):</label
+                >
+                <textarea
+                  id="edit-ingredients"
+                  name="ingredients"
+                  rows="3"
+                  required
+                  class="title-small"
+                ></textarea>
+
+                <label for="edit-instructions" class="label-large"
+                  >Instructions (each step on a new line):</label
+                >
+                <textarea
+                  id="edit-instructions"
+                  name="instructions"
+                  rows="4"
+                  required
+                  class="title-small"
+                ></textarea>
+
                 <div class="filter-actions">
-                  <button type="submit" class="btn btn-primary label-large">Update</button>
-                  <button type="button" class="btn btn-secondary label-large" onclick="document.getElementById('editRecipeDialog').close()">Close</button>
+                  <button type="submit" class="btn btn-primary label-large">
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary label-large"
+                    onclick="document.getElementById('editRecipeDialog').close()"
+                  >
+                    Close
+                  </button>
                 </div>
               </form>
             </dialog>
 
             <dialog id="deleteConfirmDialog">
               <form method="dialog" id="delete-form">
-                <h2 class="headline-small">Are you sure you want to delete this recipe?</h2>
+                <h2 class="headline-small">
+                  Are you sure you want to delete this recipe?
+                </h2>
                 <div class="filter-actions">
-                  <button type="submit" class="btn btn-danger label-large">Yes, Delete</button>
-                  <button type="button" class="btn btn-secondary label-large" onclick="document.getElementById('deleteConfirmDialog').close()">Cancel</button>
+                  <button type="submit" class="btn btn-danger label-large">
+                    Yes, Delete
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary label-large"
+                    onclick="document.getElementById('deleteConfirmDialog').close()"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </form>
             </dialog>
-
           </div>
 
-          <div class="grid-list recipes-list" data-grid-list>
-
-
-          </div>
-
+          <div class="grid-list recipes-list" data-grid-list></div>
         </div>
       </article>
     </main>
     <script src="../Script/theme.js"></script>
-    <script  type="module" src="../Script/recipe.js"></script>
+    <script type="module" src="../Script/recipe.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -5,7 +5,7 @@ const searchBtn = document.querySelector("[data-search-btn]")
 
 searchBtn.addEventListener('click', () => {
     if(searchField.value) {
-        window.location = `/Pages/recipies.html?q=${searchField.value}`
+        window.location = `/Recipe-Finder/Pages/recipies.html?q=${searchField.value}`
     }
 })
 
@@ -248,7 +248,7 @@ const tagListContainer = document.querySelector(".tag-list");
 
 function createTagBadge(tag) {
   return `
-    <a href="/Pages/recipies.html?tag=${encodeURIComponent(tag)}" class="badge-btn body-medium has-state">
+    <a href="/Recipe-Finder/Pages/recipies.html?tag=${encodeURIComponent(tag)}" class="badge-btn body-medium has-state">
       ${tag}
     </a>
   `;
