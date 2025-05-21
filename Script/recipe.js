@@ -356,7 +356,7 @@ addRecipeForm.addEventListener("submit", async function (e) {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id || 1; // fallback if not found
-
+  const accessToken = localStorage.getItem("accessToken");
   const newRecipe = {
     name,
     prepTimeMinutes: prepTime,
@@ -368,13 +368,14 @@ addRecipeForm.addEventListener("submit", async function (e) {
     ingredients,
     instructions,
     image: imageURL,
-    user: userId,
+    user: 5,
     tag_ids: [18], 
     rating: 4.5, 
   };
 
   try {
-    const added = await addRecipe(newRecipe);
+    console.log(newRecipe)
+    const added = await addRecipe(newRecipe, accessToken);
     const card = createRecipeCard(added);
     recipeList.prepend(card);
 
@@ -411,7 +412,7 @@ document.getElementById("edit-recipe-form").addEventListener("submit", async fun
   const imageInput = document.getElementById("edit-image");
   const imageFile = imageInput.files[0];
   const imageURL = imageFile ? URL.createObjectURL(imageFile) : null;
-
+  const accessToken = localStorage.getItem("accessToken");
   const updatedRecipe = {
     name,
     prepTimeMinutes,
@@ -427,7 +428,7 @@ document.getElementById("edit-recipe-form").addEventListener("submit", async fun
   if (imageURL) updatedRecipe.image = imageURL;
 
   try {
-    const updated = await updateRecipe(id, updatedRecipe);
+    const updated = await updateRecipe(id, updatedRecipe,accessToken);
     await loadRecipes();
     document.getElementById("editRecipeDialog").close();
   } catch (err) {

@@ -155,11 +155,11 @@ export const removeFromFav = async function (id, accessToken) {
 export const getAllFav = async function (accessToken) {
   try {
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/favorites/`, {
-       method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -231,11 +231,14 @@ export const getRecipesTags = async function () {
 };
 
 // Add Recipe
-export const addRecipe = async function (recipeData) {
+export const addRecipe = async function (recipeData, accessToken) {
   try {
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify(recipeData),
     });
 
@@ -251,11 +254,14 @@ export const addRecipe = async function (recipeData) {
 };
 
 // update Recipe
-export const updateRecipe = async function (id, recipeData) {
+export const updateRecipe = async function (id, recipeData,accessToken) {
   try {
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/${id}/update/`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify(recipeData),
     });
 
