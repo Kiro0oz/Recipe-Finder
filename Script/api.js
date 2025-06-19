@@ -175,19 +175,15 @@ export const getAllFav = async function (accessToken) {
 };
 
 // Search recipes
-export const searchRecipe = async function (query) {
+export const searchRecipe = async (query) => {
   try {
-    const response = await fetch(
-      `${BACKENDDOMAIN}/api/recipe/search/?q=${query}`
-    );
+    const res = await fetch(`${BACKENDDOMAIN}/api/recipe/search/?q=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error("Failed to search");
 
-    if (!response.ok) {
-      throw new Error("Failed to search for recipe");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error to search for recipe:", error);
+    return await res.json();
+  } catch (err) {
+    console.error("Search failed:", err);
+    return { recipes: [] };
   }
 };
 
@@ -195,13 +191,9 @@ export const searchRecipe = async function (query) {
 export const getLimitedRecipes = async (limit = 10, accessToken) => {
   try {
     const response = await fetch(
-      `${BACKENDDOMAIN}/api/recipe/limit/?limit=${limit}&select=name,image,cookTimeMinutes,cuisine,mealType,is_favorited`,
+      `${BACKENDDOMAIN}/api/recipe/limit/?limit=${limit}&select=name,image,cookTimeMinutes,cuisine,mealType,is_favorited,cookTimeMinutes,caloriesPerServing,ingredients,instructions,prepTimeMinutes,servings`,
       {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
       }
     );
     if (!response.ok) {
@@ -233,13 +225,28 @@ export const getRecipesTags = async function () {
 // Add Recipe
 export const addRecipe = async function (recipeData, accessToken) {
   try {
+    const formData = new FormData();
+
+    for (const key in recipeData) {
+      const value = recipeData[key];
+
+      if (Array.isArray(value)) {
+        if (['ingredients', 'mealType', 'instructions'].includes(key)) {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          value.forEach((item) => formData.append(key, item));
+        }
+      } else {
+        formData.append(key, value);
+      }
+    }
+
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(recipeData),
+      body: formData,
     });
 
     if (!response.ok) {
@@ -250,37 +257,56 @@ export const addRecipe = async function (recipeData, accessToken) {
     return data;
   } catch (error) {
     console.error("Error adding recipe:", error);
+    throw error;
   }
 };
 
 // update Recipe
-export const updateRecipe = async function (id, recipeData,accessToken) {
+export const updateRecipe = async function (id, recipeData, accessToken) {
   try {
+    const formData = new FormData();
+
+    for (const key in recipeData) {
+      const value = recipeData[key];
+
+      if (Array.isArray(value)) {
+        if (["mealType", "ingredients", "instructions"].includes(key)) {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          value.forEach((item) => formData.append(key, item));
+        }
+      } else {
+        formData.append(key, value);
+      }
+    }
+
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/${id}/update/`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(recipeData),
+      body: formData,
     });
 
     if (!response.ok) {
-      throw new Error("Failed to add recipe");
+      throw new Error("Failed to update recipe");
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
-    console.error("Error adding recipe:", error);
+    console.error("Error updating recipe:", error);
+    throw error;
   }
 };
 
 // delete Recipe
-export const deleteRecipe = async function (id) {
+export const deleteRecipe = async function (id,accessToken) {
   try {
     const response = await fetch(`${BACKENDDOMAIN}/api/recipe/${id}/delete/`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     const data = await response.json();
     return data;

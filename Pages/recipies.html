@@ -481,7 +481,7 @@
             </button>
 
             <dialog id="recipeDialog">
-              <form method="dialog" class="Add-recipe-form">
+              <form  class="Add-recipe-form">
                 <h2 class="headline-small">Add New Recipe</h2>
 
                 <label for="image" class="label-large">Recipe Image:</label>
@@ -612,13 +612,12 @@
 
             <dialog id="editRecipeDialog">
               <form
-                method="dialog"
                 class="Add-recipe-form"
                 id="edit-recipe-form"
               >
                 <h2 class="headline-small">Edit Recipe</h2>
                 <input type="hidden" id="edit-id" />
-
+                <img id="edit-image-preview" src="" alt="Preview" style="max-width: 30%; margin-top: 1rem;" />
                 <label for="edit-image" class="label-large"
                   >Recipe Image:</label
                 >

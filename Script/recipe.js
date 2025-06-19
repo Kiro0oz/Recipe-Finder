@@ -47,8 +47,6 @@ const filterClear = document.querySelector("[data-filter-clear]");
 const filterSearch = filterBar.querySelector("input[type='search']");
 
 filterSubmit.addEventListener("click", async function () {
-  const filterCheckBoxes = filterBar.querySelectorAll("input:checked");
-  const queries = [];
 
   let query = "";
 
@@ -269,33 +267,53 @@ async function loadRecipes() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  loadRecipes();
+// document.addEventListener("DOMContentLoaded", async () => {
+//   loadRecipes();
 
-  const addRecipeBtn = document.getElementById("Add-recipe");
-    const accessToken = localStorage.getItem("accessToken");
-    const isLoggedIn = !!accessToken;
+//   const addRecipeBtn = document.getElementById("Add-recipe");
+//     const accessToken = localStorage.getItem("accessToken");
+//     const isLoggedIn = !!accessToken;
 
-    let isAdmin = false;
-    if (isLoggedIn) {
-      try {
-        const roleData = await getRole(accessToken);
-        isAdmin = roleData.role === 'admin';
-      } catch (error) {
-        console.error("Failed to fetch role:", error);
-      }
-    }
+//     let isAdmin = false;
+//     if (isLoggedIn) {
+//       try {
+//         const roleData = await getRole(accessToken);
+//         isAdmin = roleData.role === 'admin';
+//       } catch (error) {
+//         console.error("Failed to fetch role:", error);
+//       }
+//     }
 
-  if (!isLoggedIn || !isAdmin) {
-    addRecipeBtn.style.display = "none";
-  }
-});
+//   if (!isLoggedIn || !isAdmin) {
+//     addRecipeBtn.style.display = "none";
+//   }
+// });
 
 // Get Result depend on Tag or Query
+
+
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tag = urlParams.get("tag");
   const query = urlParams.get("q");
+
+  const addRecipeBtn = document.getElementById("Add-recipe");
+  const accessToken = localStorage.getItem("accessToken");
+  const isLoggedIn = !!accessToken;
+
+  let isAdmin = false;
+  if (isLoggedIn) {
+    try {
+      const roleData = await getRole(accessToken);
+      isAdmin = roleData.role === 'admin';
+    } catch (error) {
+      console.error("Failed to fetch role:", error);
+    }
+  }
+
+  if (!isLoggedIn || !isAdmin) {
+    addRecipeBtn.style.display = "none";
+  }
 
   if (tag || query) {
     const searchTerm = tag || query;
@@ -309,7 +327,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         recipeList.innerHTML = `<p class="no-results">No recipes found for "${searchTerm}".</p>`;
       } else {
         recipes.forEach((recipe) => {
-          const card = createRecipeCard(recipe);
+          const card = createRecipeCard(recipe, isLoggedIn, isAdmin);
           recipeList.appendChild(card);
         });
       }
@@ -318,11 +336,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error loading searched/tagged recipes:", error);
     }
   } else {
-    loadRecipes();
+    loadRecipes(); 
   }
 });
 
-// Add/update/delete recipe for admin
+
 const addRecipeForm = document.querySelector(".Add-recipe-form");
 const dialog = document.getElementById("recipeDialog");
 
@@ -350,13 +368,9 @@ addRecipeForm.addEventListener("submit", async function (e) {
 
   const imageInput = document.getElementById("image");
   const imageFile = imageInput.files[0];
-  const imageURL = imageFile
-    ? URL.createObjectURL(imageFile)
-    : "https://via.placeholder.com/200";
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id || 1; // fallback if not found
   const accessToken = localStorage.getItem("accessToken");
+
   const newRecipe = {
     name,
     prepTimeMinutes: prepTime,
@@ -367,16 +381,15 @@ addRecipeForm.addEventListener("submit", async function (e) {
     mealType,
     ingredients,
     instructions,
-    image: imageURL,
-    user: 5,
-    tag_ids: [18], 
-    rating: 4.5, 
+    image: imageFile,
+    tag_ids: [17], 
+    rating: 4.5,
   };
 
   try {
     console.log(newRecipe)
     const added = await addRecipe(newRecipe, accessToken);
-    const card = createRecipeCard(added);
+    const card = createRecipeCard(added); 
     recipeList.prepend(card);
 
     dialog.close();
@@ -425,7 +438,7 @@ document.getElementById("edit-recipe-form").addEventListener("submit", async fun
     mealType,
   };
 
-  if (imageURL) updatedRecipe.image = imageURL;
+  if (imageURL) updatedRecipe.image = imageFile;
 
   try {
     const updated = await updateRecipe(id, updatedRecipe,accessToken);
@@ -439,17 +452,26 @@ document.getElementById("edit-recipe-form").addEventListener("submit", async fun
 function openEditDialog(recipe) {
   currentEditingId = recipe.id;
 
-  document.getElementById("edit-id").value = recipe.id;
-  document.getElementById("edit-name").value = recipe.name;
-  document.getElementById("edit-prep-time").value = recipe.prepTimeMinutes || 0;
-  document.getElementById("edit-cook-time").value = recipe.cookTimeMinutes || 0;
-  document.getElementById("edit-servings").value = recipe.servings || 1;
-  document.getElementById("edit-cuisine").value = recipe.cuisine || '';
-  document.getElementById("edit-calories").value = recipe.caloriesPerServing || 0;
-  document.getElementById("edit-mealType").value = recipe.mealType?.join(", ") || '';
-  document.getElementById("edit-ingredients").value = recipe.ingredients?.join(", ") || '';
-  document.getElementById("edit-instructions").value = recipe.instructions?.join("\n") || '';
+  document.getElementById("edit-name").value = recipe.name || "";
+  document.getElementById("edit-prep-time").value = recipe.prepTimeMinutes ?? "";
+  document.getElementById("edit-cook-time").value = recipe.cookTimeMinutes ?? "";
+  document.getElementById("edit-servings").value = recipe.servings ?? "";
+  document.getElementById("edit-cuisine").value = recipe.cuisine || "";
+  document.getElementById("edit-calories").value = recipe.caloriesPerServing ?? "";
 
+  document.getElementById("edit-ingredients").value = Array.isArray(recipe.ingredients)
+    ? recipe.ingredients.join(", ")
+    : "";
+
+  document.getElementById("edit-instructions").value = Array.isArray(recipe.instructions)
+    ? recipe.instructions.join("\n")
+    : "";
+
+  document.getElementById("edit-mealType").value = Array.isArray(recipe.mealType)
+    ? recipe.mealType.join(", ")
+    : "";
+
+  document.getElementById("edit-image-preview").src = recipe.image || "https://via.placeholder.com/200";
   document.getElementById("editRecipeDialog").showModal();
 }
 
@@ -462,10 +484,11 @@ document
   .getElementById("delete-form")
   .addEventListener("submit", async function (e) {
     e.preventDefault();
+    const accessToken = localStorage.getItem("accessToken");
 
     if (cardToDelete) {
       try {
-        await deleteRecipe(cardToDelete.id);
+        await deleteRecipe(cardToDelete.id,accessToken);
         cardToDelete.cardElement.remove();
         cardToDelete = null;
       } catch (err) {
@@ -475,3 +498,5 @@ document
 
     document.getElementById("deleteConfirmDialog").close();
   });
+
+
