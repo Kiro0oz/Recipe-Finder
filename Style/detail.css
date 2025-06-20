@@ -31,6 +31,8 @@
 .detail-author {
     color: var(--on-background-variant);
     margin-block: 16px;
+    display: flex;
+    gap: 5px;
 }
 
 .detail-author .span {

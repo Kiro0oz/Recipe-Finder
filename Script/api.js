@@ -1,4 +1,3 @@
-const DOMAIN = "https://dummyjson.com";
 const BACKENDDOMAIN = "http://127.0.0.1:8000";
 
 // Register

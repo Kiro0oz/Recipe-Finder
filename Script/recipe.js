@@ -7,7 +7,6 @@ import {
   getRole,
   addToFav,
   removeFromFav,
-  getRecipes
 } from "./api.js";
 
 // Accordion
@@ -97,6 +96,7 @@ window.addEventListener("scroll", (e) => {
 });
 
 const recipeList = document.querySelector("[data-grid-list]");
+const BACKENDDOMAIN = "http://127.0.0.1:8000";
 
 function createRecipeCard(recipe, isLoggedIn, isAdmin) {
   const card = document.createElement("div");
@@ -105,7 +105,7 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
   card.innerHTML = `
     <figure class="card-media img-holder">
       <img
-        src="${recipe.image}"
+        src="${recipe.image.startsWith('http') ? recipe.image : BACKENDDOMAIN + recipe.image}"
         alt="${recipe.name}"
         width="200"
         height="200"
@@ -238,8 +238,6 @@ async function loadRecipes() {
   try {
     const accessToken = localStorage.getItem("accessToken");
     const response = await getLimitedRecipes(50,accessToken);
-    // const response = await getRecipes();
-    console.log(response.recipes)
     const recipes = response.recipes;
 
     const isLoggedIn = !!accessToken;
@@ -320,7 +318,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const data = await searchRecipe(searchTerm);
       const recipes = data.recipes || [];
-
+      console.log(data)
       recipeList.innerHTML = "";
 
       if (recipes.length === 0) {
