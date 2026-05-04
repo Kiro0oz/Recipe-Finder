@@ -1,10 +1,10 @@
-import { getLimitedRecipes, getRecipesTags } from "./api.js";
+import { getLimitedRecipes, getRecipesTags, addToFav } from "./api.js";
 
 const searchField = document.querySelector("[data-search-field]");
 document
   .querySelector("[data-search-btn]")
   .addEventListener("click", function (e) {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const searchInput = document
       .querySelector("[data-search-field]")
@@ -17,14 +17,12 @@ document
     }
   });
 
-// Press enter feature
 searchField.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     searchBtn.click();
   }
 });
 
-// Tap navigation
 const tabBtns = document.querySelectorAll("[data-tab-btn]");
 const tabPanels = document.querySelectorAll("[data-tab-panel]");
 
@@ -67,29 +65,30 @@ const mealTypePanels = {
 
 function createGridCard(recipe) {
   return `
-      <div class="card">
-        <figure class="card-media img-holder">
-          <img src="${recipe.image}" alt="${recipe.name}" width="200" height="200" loading="lazy" class="img-cover" />
-        </figure>
-        <div class="card-body">
-          <h3 class="title-small">
-            <a href="Pages/detail.html?id=${recipe.id}" class="card-link">${recipe.name}</a>
-          </h3>
-          <div class="meta-wrapper">
-            <div class="meta-item">
-              <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-              <span class="label-medium">${recipe.cookTimeMinutes} minutes</span>
-            </div>
-            <button class="icon-btn has-state removed" aria-label="Add to saved recipes">
-              <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
-              <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
-            </button>
+    <div class="card">
+      <figure class="card-media img-holder">
+        <img src="${recipe.image}" alt="${recipe.name}" width="200" height="200" loading="lazy" class="img-cover" />
+      </figure>
+      <div class="card-body">
+        <h3 class="title-small">
+          <a href="Pages/detail.html?id=${recipe.id}" class="card-link">${recipe.name}</a>
+        </h3>
+        <div class="meta-wrapper">
+          <div class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+            <span class="label-medium">${recipe.cookTimeMinutes} minutes</span>
           </div>
+          <button class="icon-btn has-state ${recipe.is_favorited ? "saved" : "removed"}"
+            aria-label="Add to saved recipes"
+            data-recipe-id="${recipe.id}">
+            <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
+            <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
+          </button>
         </div>
       </div>
-    `;
+    </div>
+  `;
 }
-
 function displayMealTypeRecipes(recipes) {
   const mealTypes = Object.keys(mealTypePanels);
 
@@ -109,6 +108,8 @@ function displayMealTypeRecipes(recipes) {
       gridList.innerHTML += createGridCard(recipe);
     });
   });
+
+   setupBookmarkButtons();
 }
 
 //! ================== For Recipes APIs ================== //
@@ -139,7 +140,9 @@ function createRecipeCard(recipe) {
             </div>
             <button class="icon-btn has-state ${
               recipe.is_favorited ? "saved" : "removed"
-            }" aria-label="Add to saved recipes">
+            }"
+              aria-label="Add to saved recipes"
+              data-recipe-id="${recipe.id}">
               <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
               <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
             </button>
@@ -150,68 +153,61 @@ function createRecipeCard(recipe) {
   `;
 }
 
-async function setupBookmarkButtons() {
-  document.querySelectorAll(".icon-btn").forEach((btn) => {
+function setupBookmarkButtons() {
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".icon-btn");
+
+    if (!btn) return;
+
+
+    e.preventDefault(); 
+
     const card = btn.closest(".card");
     if (!card) return;
 
-    const linkElement = card.querySelector(".card-link");
-    if (!linkElement) return;
-    const link = linkElement.getAttribute("href");
-    const idMatch = link.match(/id=(\d+)/);
-    const id = idMatch ? idMatch[1] : null;
+    const id = btn.getAttribute("data-recipe-id");
+    const accessToken = localStorage.getItem("accessToken");
 
-    if (!id) return;
+    if (!accessToken) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please log in to save recipes.",
+      });
+      return;
+    }
 
-    // Handle click to add/remove from favorites using backend
-    btn.addEventListener("click", async () => {
-      const accessToken = localStorage.getItem("accessToken");
+    const name = card.querySelector(".card-link").textContent;
+    const isCurrentlySaved = btn.classList.contains("saved");
 
-      if (!accessToken) {
+    try {
+      if (!isCurrentlySaved) {
+        await addToFav(id, accessToken);
+        btn.classList.remove("removed");
+        btn.classList.add("saved");
         Swal.fire({
-          icon: "warning",
-          title: "Login Required",
-          text: "Please log in to save recipes.",
+          icon: "success",
+          title: "Recipe Saved",
+          text: `"${name}" has been added to your favorites.`,
         });
-        return;
-      }
-
-      const name = card.querySelector(".card-link").textContent;
-      const image = card.querySelector("img").src;
-      const timeText = card.querySelector(".label-medium").textContent;
-      const time = parseInt(timeText);
-
-      const isCurrentlySaved = btn.classList.contains("saved");
-
-      try {
-        if (!isCurrentlySaved) {
-          await addToFav(id, accessToken);
-          btn.classList.remove("removed");
-          btn.classList.add("saved");
-          Swal.fire({
-            icon: "success",
-            title: "Recipe Saved",
-            text: `"${name}" has been added to your favorites.`,
-          });
-        } else {
-          await removeFromFav(id, accessToken);
-          btn.classList.remove("saved");
-          btn.classList.add("removed");
-          Swal.fire({
-            icon: "info",
-            title: "Recipe Removed",
-            text: `"${name}" has been removed from your favorites.`,
-          });
-        }
-      } catch (error) {
-        console.error("Error managing favorite:", error);
+      } else {
+        await removeFromFav(id, accessToken);
+        btn.classList.remove("saved");
+        btn.classList.add("removed");
         Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Something went wrong. Please try again.",
+          icon: "info",
+          title: "Recipe Removed",
+          text: `"${name}" has been removed from your favorites.`,
         });
       }
-    });
+    } catch (error) {
+      console.error("Error managing favorite:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong. Please try again.",
+      });
+    }
   });
 }
 

@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Registered successfully!",
         text: data.message || "",
       }).then(() => {
-        window.location.href = "./login.html";
+        window.location.href = "../Pages/Authentication/login.html";
       });
 
       form.reset();

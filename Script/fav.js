@@ -48,7 +48,6 @@ function createSavedRecipeCard(recipe) {
 
     try {
       await removeFromFav(recipe.id, accessToken);
-      // Remove card from DOM
       card.closest('li').remove();
       Swal.fire({
         icon: 'info',

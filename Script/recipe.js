@@ -46,7 +46,6 @@ const filterClear = document.querySelector("[data-filter-clear]");
 const filterSearch = filterBar.querySelector("input[type='search']");
 
 filterSubmit.addEventListener("click", async function () {
-
   let query = "";
 
   if (filterSearch.value) {
@@ -105,7 +104,11 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
   card.innerHTML = `
     <figure class="card-media img-holder">
       <img
-        src="${recipe.image.startsWith('http') ? recipe.image : BACKENDDOMAIN + recipe.image}"
+        src="${
+          recipe.image.startsWith("http")
+            ? recipe.image
+            : BACKENDDOMAIN + recipe.image
+        }"
         alt="${recipe.name}"
         width="200"
         height="200"
@@ -116,7 +119,9 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
 
     <div class="card-body">
       <h3 class="title-small">
-        <a href="./detail.html?id=${recipe.id}" class="card-link">${recipe.name}</a>
+        <a href="./detail.html?id=${recipe.id}" class="card-link">${
+    recipe.name
+  }</a>
       </h3>
       <div class="meta-wrapper">
         <div class="meta-item">
@@ -124,7 +129,9 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
           <span class="label-medium">${recipe.cookTimeMinutes} minutes</span>
         </div>
 
-        <button class="icon-btn has-state ${recipe.is_favorited ? "saved" : "removed"}" aria-label="Add to saved recipes">
+        <button type="button" class="icon-btn has-state ${
+          recipe.is_favorited ? "saved" : "removed"
+        }" aria-label="Add to saved recipes">
           <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
           <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
         </button>
@@ -141,7 +148,7 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
       <div class="admin-actions">
         <span class="material-symbols-outlined">delete</span>
       </div>
-    </div>` 
+    </div>`
         : ""
     }
   `;
@@ -149,8 +156,12 @@ function createRecipeCard(recipe, isLoggedIn, isAdmin) {
   if (isLoggedIn && isAdmin) {
     const adminActions = card.querySelectorAll(".admin-actions");
 
-    const editBtn = adminActions[0]?.querySelector(".material-symbols-outlined");
-    const deleteBtn = adminActions[1]?.querySelector(".material-symbols-outlined");
+    const editBtn = adminActions[0]?.querySelector(
+      ".material-symbols-outlined"
+    );
+    const deleteBtn = adminActions[1]?.querySelector(
+      ".material-symbols-outlined"
+    );
 
     if (editBtn) {
       editBtn.addEventListener("click", () => {
@@ -183,8 +194,10 @@ async function setupBookmarkButtons() {
     if (!id) return;
 
     // Handle click to add/remove from favorites using backend
-    btn.addEventListener("click", async () => {
-      const accessToken = localStorage.getItem("accessToken"); 
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault(); 
+      e.stopPropagation();
+      const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
         Swal.fire({
@@ -237,7 +250,7 @@ async function setupBookmarkButtons() {
 async function loadRecipes() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await getLimitedRecipes(50,accessToken);
+    const response = await getLimitedRecipes(50, accessToken);
     const recipes = response.recipes;
 
     const isLoggedIn = !!accessToken;
@@ -246,7 +259,7 @@ async function loadRecipes() {
     if (isLoggedIn) {
       try {
         const roleData = await getRole(accessToken);
-        isAdmin = roleData.role === 'admin';
+        isAdmin = roleData.role === "admin";
       } catch (error) {
         console.error("Failed to fetch role:", error);
       }
@@ -265,31 +278,6 @@ async function loadRecipes() {
   }
 }
 
-// document.addEventListener("DOMContentLoaded", async () => {
-//   loadRecipes();
-
-//   const addRecipeBtn = document.getElementById("Add-recipe");
-//     const accessToken = localStorage.getItem("accessToken");
-//     const isLoggedIn = !!accessToken;
-
-//     let isAdmin = false;
-//     if (isLoggedIn) {
-//       try {
-//         const roleData = await getRole(accessToken);
-//         isAdmin = roleData.role === 'admin';
-//       } catch (error) {
-//         console.error("Failed to fetch role:", error);
-//       }
-//     }
-
-//   if (!isLoggedIn || !isAdmin) {
-//     addRecipeBtn.style.display = "none";
-//   }
-// });
-
-// Get Result depend on Tag or Query
-
-
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tag = urlParams.get("tag");
@@ -303,7 +291,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (isLoggedIn) {
     try {
       const roleData = await getRole(accessToken);
-      isAdmin = roleData.role === 'admin';
+      isAdmin = roleData.role === "admin";
     } catch (error) {
       console.error("Failed to fetch role:", error);
     }
@@ -318,7 +306,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const data = await searchRecipe(searchTerm);
       const recipes = data.recipes || [];
-      console.log(data)
+      console.log(data);
       recipeList.innerHTML = "";
 
       if (recipes.length === 0) {
@@ -334,10 +322,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error loading searched/tagged recipes:", error);
     }
   } else {
-    loadRecipes(); 
+    loadRecipes();
   }
 });
-
 
 const addRecipeForm = document.querySelector(".Add-recipe-form");
 const dialog = document.getElementById("recipeDialog");
@@ -352,16 +339,19 @@ addRecipeForm.addEventListener("submit", async function (e) {
   const servings = parseInt(document.getElementById("servings").value);
   const cuisine = document.getElementById("cuisine").value;
 
-  const mealType = document.getElementById("tags").value
-    .split(",")
+  const mealType = document
+    .getElementById("tags")
+    .value.split(",")
     .map((tag) => tag.trim());
 
-  const ingredients = document.getElementById("ingredients").value
-    .split(",")
+  const ingredients = document
+    .getElementById("ingredients")
+    .value.split(",")
     .map((ing) => ing.trim());
 
-  const instructions = document.getElementById("instructions").value
-    .split("\n")
+  const instructions = document
+    .getElementById("instructions")
+    .value.split("\n")
     .map((step) => step.trim());
 
   const imageInput = document.getElementById("image");
@@ -380,14 +370,13 @@ addRecipeForm.addEventListener("submit", async function (e) {
     ingredients,
     instructions,
     image: imageFile,
-    tag_ids: [17], 
+    tag_ids: [24],
     rating: 4.5,
   };
 
   try {
-    console.log(newRecipe)
     const added = await addRecipe(newRecipe, accessToken);
-    const card = createRecipeCard(added); 
+    const card = createRecipeCard(added);
     recipeList.prepend(card);
 
     dialog.close();
@@ -400,76 +389,97 @@ addRecipeForm.addEventListener("submit", async function (e) {
 let currentEditingId = null;
 let cardToDelete = null;
 
-document.getElementById("edit-recipe-form").addEventListener("submit", async function (e) {
-  e.preventDefault();
+document
+  .getElementById("edit-recipe-form")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-  const id = currentEditingId;
-  const name = document.getElementById("edit-name").value;
-  const prepTimeMinutes = parseInt(document.getElementById("edit-prep-time").value);
-  const cookTimeMinutes = parseInt(document.getElementById("edit-cook-time").value);
-  const servings = parseInt(document.getElementById("edit-servings").value);
-  const cuisine = document.getElementById("edit-cuisine").value;
-  const caloriesPerServing = parseInt(document.getElementById("edit-calories").value);
-  const ingredients = document.getElementById("edit-ingredients").value
-    .split(",")
-    .map((item) => item.trim());
-  const instructions = document.getElementById("edit-instructions").value
-    .split("\n")
-    .map((step) => step.trim());
-  const mealType = document.getElementById("edit-mealType").value
-    .split(",")
-    .map((type) => type.trim());
+    const id = currentEditingId;
+    const name = document.getElementById("edit-name").value;
+    const prepTimeMinutes = parseInt(
+      document.getElementById("edit-prep-time").value
+    );
+    const cookTimeMinutes = parseInt(
+      document.getElementById("edit-cook-time").value
+    );
+    const servings = parseInt(document.getElementById("edit-servings").value);
+    const cuisine = document.getElementById("edit-cuisine").value;
+    const caloriesPerServing = parseInt(
+      document.getElementById("edit-calories").value
+    );
+    const ingredients = document
+      .getElementById("edit-ingredients")
+      .value.split(",")
+      .map((item) => item.trim());
+    const instructions = document
+      .getElementById("edit-instructions")
+      .value.split("\n")
+      .map((step) => step.trim());
+    const mealType = document
+      .getElementById("edit-mealType")
+      .value.split(",")
+      .map((type) => type.trim());
 
-  const imageInput = document.getElementById("edit-image");
-  const imageFile = imageInput.files[0];
-  const imageURL = imageFile ? URL.createObjectURL(imageFile) : null;
-  const accessToken = localStorage.getItem("accessToken");
-  const updatedRecipe = {
-    name,
-    prepTimeMinutes,
-    cookTimeMinutes,
-    servings,
-    cuisine,
-    caloriesPerServing,
-    ingredients,
-    instructions,
-    mealType,
-  };
+    const imageInput = document.getElementById("edit-image");
+    const imageFile = imageInput.files[0];
+    const imageURL = imageFile ? URL.createObjectURL(imageFile) : null;
+    const accessToken = localStorage.getItem("accessToken");
+    const updatedRecipe = {
+      name,
+      prepTimeMinutes,
+      cookTimeMinutes,
+      servings,
+      cuisine,
+      caloriesPerServing,
+      ingredients,
+      instructions,
+      mealType,
+    };
 
-  if (imageURL) updatedRecipe.image = imageFile;
+    if (imageURL) updatedRecipe.image = imageFile;
 
-  try {
-    const updated = await updateRecipe(id, updatedRecipe,accessToken);
-    await loadRecipes();
-    document.getElementById("editRecipeDialog").close();
-  } catch (err) {
-    console.error("Error updating recipe:", err);
-  }
-});
+    try {
+      const updated = await updateRecipe(id, updatedRecipe, accessToken);
+      await loadRecipes();
+      document.getElementById("editRecipeDialog").close();
+    } catch (err) {
+      console.error("Error updating recipe:", err);
+    }
+  });
 
 function openEditDialog(recipe) {
   currentEditingId = recipe.id;
 
   document.getElementById("edit-name").value = recipe.name || "";
-  document.getElementById("edit-prep-time").value = recipe.prepTimeMinutes ?? "";
-  document.getElementById("edit-cook-time").value = recipe.cookTimeMinutes ?? "";
+  document.getElementById("edit-prep-time").value =
+    recipe.prepTimeMinutes ?? "";
+  document.getElementById("edit-cook-time").value =
+    recipe.cookTimeMinutes ?? "";
   document.getElementById("edit-servings").value = recipe.servings ?? "";
   document.getElementById("edit-cuisine").value = recipe.cuisine || "";
-  document.getElementById("edit-calories").value = recipe.caloriesPerServing ?? "";
+  document.getElementById("edit-calories").value =
+    recipe.caloriesPerServing ?? "";
 
-  document.getElementById("edit-ingredients").value = Array.isArray(recipe.ingredients)
+  document.getElementById("edit-ingredients").value = Array.isArray(
+    recipe.ingredients
+  )
     ? recipe.ingredients.join(", ")
     : "";
 
-  document.getElementById("edit-instructions").value = Array.isArray(recipe.instructions)
+  document.getElementById("edit-instructions").value = Array.isArray(
+    recipe.instructions
+  )
     ? recipe.instructions.join("\n")
     : "";
 
-  document.getElementById("edit-mealType").value = Array.isArray(recipe.mealType)
+  document.getElementById("edit-mealType").value = Array.isArray(
+    recipe.mealType
+  )
     ? recipe.mealType.join(", ")
     : "";
 
-  document.getElementById("edit-image-preview").src = recipe.image || "https://via.placeholder.com/200";
+  document.getElementById("edit-image-preview").src =
+    recipe.image || "https://via.placeholder.com/200";
   document.getElementById("editRecipeDialog").showModal();
 }
 
@@ -486,7 +496,7 @@ document
 
     if (cardToDelete) {
       try {
-        await deleteRecipe(cardToDelete.id,accessToken);
+        await deleteRecipe(cardToDelete.id, accessToken);
         cardToDelete.cardElement.remove();
         cardToDelete = null;
       } catch (err) {
@@ -496,5 +506,3 @@ document
 
     document.getElementById("deleteConfirmDialog").close();
   });
-
-
